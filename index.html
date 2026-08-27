@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codyhome · 免费可商用素材导航</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #000000;
+    --muted: #6b6b6b;
+    --faint: #9b9b9b;
+    --border: #e6e6e6;
+    --border-strong: #000000;
+    --radius: 0;
+    --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Roboto, 'Helvetica Neue', sans-serif;
+    --maxw: 1200px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  ::selection { background: #000; color: #fff; }
+  body {
+    font-family: var(--font-ui);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 99px; border: 3px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover { background: #000; }
+
+  /* ===== 顶栏 ===== */
+  header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--border); }
+  .header-inner { max-width: var(--maxw); margin: 0 auto; padding: 20px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .brand { margin-right: auto; }
+  .brand h1 { font-size: 18px; font-weight: 800; letter-spacing: -.01em; }
+  .brand p { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--faint); margin-top: 2px; }
+  .header-actions { display: flex; gap: 10px; }
+  .action-btn {
+    border: 1px solid var(--border-strong); background: transparent; color: var(--text);
+    padding: 9px 18px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+    letter-spacing: .02em; transition: background .15s, color .15s, border-color .15s;
+  }
+  .action-btn:hover { background: var(--text); color: #fff; }
+  .action-btn.primary { background: var(--text); color: #fff; }
+  .action-btn.primary:hover { background: #333; border-color: #333; }
+
+  /* ===== Hero(左对齐,编辑式排版) ===== */
+  .hero { max-width: var(--maxw); margin: 0 auto; padding: 96px 24px 44px; }
+  .eyebrow { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--faint); margin-bottom: 24px; }
+  .hero h2 { font-size: clamp(48px, 8.5vw, 104px); font-weight: 800; line-height: 1.02; letter-spacing: -.035em; }
+  .hero-sub { margin-top: 28px; font-size: 17px; color: var(--muted); max-width: 560px; }
+  .hero-sub b { color: var(--text); font-weight: 600; }
+
+  .hero-search { max-width: 640px; margin-top: 48px; }
+  .search-box { display: flex; align-items: center; border: 1px solid var(--border-strong); }
+  .search-box input {
+    flex: 1; border: none; outline: none; background: transparent; color: var(--text);
+    font-size: 17px; padding: 16px 20px; font-family: inherit; min-width: 0;
+  }
+  .search-box input::placeholder { color: var(--faint); }
+  .clear-btn { border: none; background: transparent; color: var(--faint); cursor: pointer; font-size: 16px; width: 46px; height: 46px; display: none; flex-shrink: 0; }
+  .clear-btn.show { display: block; }
+  .clear-btn:hover { color: var(--text); }
+
+  /* ===== 分类 tab + 排序 ===== */
+  .controls { max-width: var(--maxw); margin: 0 auto; padding: 20px 24px 8px; display: flex; gap: 8px 28px; flex-wrap: wrap; align-items: center; }
+  .sort-select { border: 1px solid var(--border); background: transparent; color: var(--text); padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; outline: none; font-family: inherit; }
+  .sort-select:focus { border-color: var(--border-strong); }
+  .chips { display: flex; gap: 0 28px; flex-wrap: wrap; align-items: center; }
+  .chip {
+    background: none; border: none; border-bottom: 1px solid transparent; border-radius: 0;
+    padding: 6px 2px; cursor: pointer;
+    font-size: 14px; font-weight: 500; color: var(--faint); font-family: inherit;
+    letter-spacing: .01em; transition: color .15s, border-color .15s; white-space: nowrap;
+  }
+  .chip:hover { color: var(--text); }
+  .chip.active { color: var(--text); border-bottom: 2px solid var(--text); font-weight: 600; }
+  .chip .count { font-size: 11px; color: var(--faint); margin-left: 3px; }
+
+  .stats { max-width: var(--maxw); margin: 0 auto; padding: 28px 24px 0; color: var(--faint); font-size: 13px; letter-spacing: .02em; }
+  .stats b { color: var(--text); font-weight: 600; }
+
+  /* ===== 主体 / 卡片 ===== */
+  main { max-width: var(--maxw); margin: 0 auto; padding: 8px 24px 96px; }
+  .section-title { font-size: 22px; font-weight: 800; letter-spacing: -.01em; margin: 64px 0 24px; display: flex; align-items: baseline; gap: 12px; }
+  .section-title .bar { display: none; }
+  .section-title .num { color: var(--faint); font-weight: 500; font-size: 13px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px; }
+  .card {
+    background: #fff; border: 1px solid var(--border); padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: border-color .18s, transform .18s ease;
+    animation: rise .35s ease backwards; animation-delay: var(--d, 0ms);
+  }
+  .card:hover { border-color: var(--border-strong); }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card-top { display: flex; align-items: flex-start; gap: 12px; }
+  .card-name { font-size: 20px; font-weight: 800; letter-spacing: -.01em; line-height: 1.25; }
+  .card-name a { color: var(--text); text-decoration: none; }
+  .card-name a:hover { text-decoration: underline; }
+  .card-desc { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; }
+  .card-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .badge {
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--faint); border: 1px solid var(--border); padding: 5px 10px; font-weight: 600;
+  }
+  .badge.warn { color: var(--text); border-color: var(--border-strong); }
+  .badge.hot-badge { color: var(--text); border-color: var(--border-strong); }
+  .visit { margin-left: auto; text-decoration: none; font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: .02em; white-space: nowrap; }
+  .visit:hover { text-decoration: underline; }
+  .star-btn { margin-left: auto; border: none; background: transparent; cursor: pointer; font-size: 20px; color: var(--faint); padding: 0 2px; line-height: 1; transition: color .15s, transform .15s; flex-shrink: 0; }
+  .star-btn:hover { color: var(--text); transform: scale(1.15); }
+  .star-btn.on { color: var(--text); }
+  @keyframes pop { 50% { transform: scale(1.3); } }
+  .note-btn { border: 1px solid var(--border); background: transparent; color: var(--faint); padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: .15s; }
+  .note-btn:hover { color: var(--text); border-color: var(--border-strong); }
+  .note-btn.has-note { color: var(--text); border-color: var(--border-strong); }
+  .card-note { font-size: 13px; color: var(--text); background: #fafafa; border: 1px solid var(--border); padding: 12px 14px; word-break: break-word; }
+
+  .to-top {
+    position: fixed; right: 22px; bottom: 26px; z-index: 60;
+    width: 44px; height: 44px;
+    border: 1px solid var(--border-strong); background: #fff; color: var(--text); font-size: 16px; cursor: pointer;
+    opacity: 0; pointer-events: none; transform: translateY(10px);
+    transition: opacity .25s, transform .25s, background .15s, color .15s;
+  }
+  .to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .to-top:hover { background: var(--text); color: #fff; }
+
+  .empty { text-align: center; color: var(--faint); padding: 96px 0; font-size: 15px; }
+  footer { max-width: var(--maxw); margin: 0 auto; padding: 48px 24px 56px; color: var(--faint); font-size: 12.5px; border-top: 1px solid var(--border); }
+  footer code { background: #fafafa; padding: 2px 7px; font-size: 11.5px; color: var(--text); border: 1px solid var(--border); }
+  footer b { color: var(--text); }
+
+  @media (max-width: 640px) {
+    .header-inner { padding: 16px; }
+    .hero { padding: 64px 16px 28px; }
+    .hero h2 { font-size: 44px; }
+    .controls, .stats, main { padding-left: 16px; padding-right: 16px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <h1>Codyhome</h1>
+      <p>Codyhome · 免费可商用素材库</p>
+    </div>
+    <div class="header-actions">
+      <button class="action-btn" id="importBtn" title="从备份文件恢复收藏与备注">导入</button>
+      <button class="action-btn primary" id="exportBtn" title="导出收藏与备注为备份文件">导出</button>
+    </div>
+    <input type="file" id="importFile" accept=".json,application/json" style="display:none">
+  </div>
+</header>
+
+<div class="hero">
+  <p class="eyebrow">Codyhome</p>
+  <h2>好素材,<br>免费可商用。</h2>
+  <p class="hero-sub">精选 <b id="heroTotal">222</b> 个免费可商用素材网站,覆盖 18 大分类。搜索即达,收藏即用。</p>
+  <div class="hero-search">
+    <div class="search-box">
+      <input id="search" type="text" placeholder="搜索网站名称、说明、授权类型…(按 / 聚焦)">
+      <button class="clear-btn" id="clearSearch" title="清空">✕</button>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <select class="sort-select" id="sortSel" title="排序">
+    <option value="default">默认排序</option>
+    <option value="name">按名称 A→Z</option>
+  </select>
+  <div class="chips" id="chips"></div>
+</div>
+
+<div class="stats" id="stats"></div>
+
+
+
+
+
+
+
+<main id="main"></main>
+
+<button class="to-top" id="toTop" title="返回顶部">↑</button>
+
+<footer>
+  如何添加:用文本编辑器打开本文件,找到 <code>SITES</code> 数组,照格式加一行即可。字段:<code>cat</code> <code>name</code> <code>url</code> <code>desc</code> <code>license</code> <code>hot</code>。<br>
+  星标收藏、写备注,数据存浏览器本地;右上角「导出 / 导入」可备份迁移。快捷键:<code>/</code> 聚焦搜索、<code>Esc</code> 清空。
+</footer>
+
+<script>
+/* =====================================================================
+   在这里添加/修改网站 —— 每行一个,照着现有格式复制即可
+   cat 取值: image(图片) / video(视频) / audio(BGM音乐) / game(游戏) / texture(贴图纹理)
+   / motion(动态素材) / character(游戏角色) / ui(UI参考) / icon(图标) / font(字体)
+   / tool(工具) / book(电子书) / edu(教育备课) / skill(技能) / voice(语音)
+   / noise(白噪音) / direct(音乐直链) / pixel(像素)
+   license 建议写清:免费商用 / 需署名 / CC0 等
+   hot: true 会显示「推荐」徽标(可选)
+   ===================================================================== */
+const SITES = [
+  /* ---------------- 图片素材 ---------------- */
+  { cat:'image', name:'Unsplash', url:'https://unsplash.com', hot:true,
+    desc:'高质量摄影图库,数量庞大、审美在线,设计师首选。', license:'免费商用,无需署名' },
+  { cat:'image', name:'Pexels', url:'https://www.pexels.com', hot:true,
+    desc:'图片+视频双资源,质量高、更新快,支持中文搜索。', license:'免费商用,无需署名' },
+  { cat:'image', name:'Pixabay', url:'https://pixabay.com', hot:true,
+    desc:'图片/视频/音乐/插画全家桶,素材量极大。', license:'免费商用,无需署名' },
+  { cat:'image', name:'StockSnap.io', url:'https://stocksnap.io',
+    desc:'每周更新高清免费图,界面简洁。', license:'CC0 公有领域' },
+  { cat:'image', name:'Burst (Shopify)', url:'https://burst.shopify.com',
+    desc:'电商/商业场景图为主,适合店铺和营销。', license:'免费商用' },
+  { cat:'image', name:'Kaboompics', url:'https://kaboompics.com',
+    desc:'色调统一、风格柔和的生活/场景图。', license:'免费商用' },
+  { cat:'image', name:'FoodiesFeed', url:'https://www.foodiesfeed.com',
+    desc:'专注美食摄影,餐饮类项目首选。', license:'免费商用' },
+  { cat:'image', name:'Gratisography', url:'https://gratisography.com',
+    desc:'风格搞怪独特,适合创意/海报类设计。', license:'免费商用' },
+  { cat:'image', name:'Picjumbo', url:'https://picjumbo.com',
+    desc:'高清免费图库,分类丰富。', license:'免费商用' },
+  { cat:'image', name:'ISO Republic', url:'https://isorepublic.com',
+    desc:'图片+视频,偏科技与城市题材。', license:'免费商用(部分需署名)' },
+  { cat:'image', name:'Life of Pix', url:'https://www.lifeofpix.com',
+    desc:'免费高清图,附赠 Life of Vids 视频站。', license:'CC0 公有领域' },
+  { cat:'image', name:'Rawpixel', url:'https://www.rawpixel.com',
+    desc:'大量免费图+插画+PSD,付费区资源更全。', license:'免费部分可商用' },
+  { cat:'image', name:'PxHere', url:'https://pxhere.com',
+    desc:'CC0 图库,可商用可修改。', license:'CC0 公有领域' },
+  { cat:'image', name:'Openverse', url:'https://openverse.org',
+    desc:'聚合搜索全网 CC 授权图片/音频,一键查来源。', license:'按各资源 CC 授权' },
+  { cat:'image', name:'Wikimedia Commons', url:'https://commons.wikimedia.org',
+    desc:'维基媒体资源库,海量公有领域/CC 图片音频视频。', license:'公有领域/CC 授权' },
+
+  /* ---------------- 视频素材 ---------------- */
+  { cat:'video', name:'Pexels Videos', url:'https://www.pexels.com/videos', hot:true,
+    desc:'免费高清视频片段,题材广、可商用。', license:'免费商用,无需署名' },
+  { cat:'video', name:'Pixabay Videos', url:'https://pixabay.com/videos',
+    desc:'视频素材量巨大,含 4K。', license:'免费商用,无需署名' },
+  { cat:'video', name:'Mixkit', url:'https://mixkit.co', hot:true,
+    desc:'视频+音乐+音效一站式,质量不错。', license:'免费商用' },
+  { cat:'video', name:'Coverr', url:'https://coverr.co',
+    desc:'精美视频片段,适合网站背景视频。', license:'免费商用' },
+  { cat:'video', name:'Videvo', url:'https://www.videvo.net',
+    desc:'视频+动态图形,免费区素材丰富。', license:'部分免费商用,部分需署名' },
+  { cat:'video', name:'Videezy', url:'https://www.videezy.com',
+    desc:'高清视频素材,含无人机航拍题材。', license:'部分需署名,注意查看' },
+  { cat:'video', name:'Mazwai', url:'https://mazwai.com',
+    desc:'精选高品质视频,视觉感强。', license:'CC 授权,查看单个许可' },
+  { cat:'video', name:'Life of Vids', url:'https://www.lifeofvids.com',
+    desc:'免费视频片段,与 Life of Pix 同源。', license:'免费商用' },
+
+  /* ---------------- BGM / 音乐 ---------------- */
+  { cat:'audio', name:'YouTube Audio Library', url:'https://studio.youtube.com', hot:true,
+    desc:'官方音乐/音效库,免费商用,需登录 YouTube 账号。', license:'免费商用' },
+  { cat:'audio', name:'Pixabay Music', url:'https://pixabay.com/music',
+    desc:'免费 BGM,可直接商用。', license:'免费商用,无需署名' },
+  { cat:'audio', name:'Mixkit Music', url:'https://mixkit.co/free-stock-music',
+    desc:'免费 BGM + 音效,分类清晰。', license:'免费商用' },
+  { cat:'audio', name:'Incompetech', url:'https://incompetech.com',
+    desc:'Kevin MacLeod 经典配乐库,曲目海量。', license:'CC BY,需署名' },
+  { cat:'audio', name:'Free Music Archive', url:'https://freemusicarchive.org',
+    desc:'独立音乐人 CC 授权作品。', license:'按各曲目 CC 授权' },
+  { cat:'audio', name:'Bensound', url:'https://www.bensound.com',
+    desc:'配乐风格多样,免费需署名。', license:'免费需署名(付费可免)' },
+  { cat:'audio', name:'Musopen', url:'https://musopen.org',
+    desc:'古典音乐录音+乐谱,公有领域为主。', license:'公有领域' },
+  { cat:'audio', name:'Chosic', url:'https://www.chosic.com',
+    desc:'免费 BGM 聚合,按情绪/场景分类。', license:'免费商用(部分需署名)' },
+  { cat:'audio', name:'Purple Planet', url:'https://www.purple-planet.com',
+    desc:'氛围感配乐,YouTube 视频友好。', license:'免费(需署名)' },
+  { cat:'audio', name:'FreePD', url:'https://freepd.com',
+    desc:'公有领域音乐,无需署名。', license:'CC0 公有领域' },
+  { cat:'audio', name:'DOVA-SYNDROME', url:'https://dova-s.jp',
+    desc:'日本免费 BGM 站,风格全面,动漫/游戏感强。', license:'免费商用' },
+  { cat:'audio', name:'ccMixter', url:'https://ccmixter.org',
+    desc:'CC 混音/采样社区,适合找 Remix。', license:'按各曲目 CC 授权' },
+  { cat:'audio', name:'Freesound', url:'https://freesound.org',
+    desc:'海量音效库(枪声、环境音等),免费注册。', license:'按各音效 CC 授权' },
+  { cat:'audio', name:'Zapsplat', url:'https://www.zapsplat.com',
+    desc:'专业音效库,免费注册后可用。', license:'免费(需注册/署名)' },
+
+  /* ---------------- 游戏素材 ---------------- */
+  { cat:'game', name:'OpenGameArt', url:'https://opengameart.org', hot:true,
+    desc:'开源游戏素材聚合:2D/3D/音乐/音效俱全。', license:'按各素材授权(多为 CC)' },
+  { cat:'game', name:'Kenney', url:'https://kenney.nl', hot:true,
+    desc:'知名游戏素材大礼包,一整套风格统一。', license:'CC0 公有领域' },
+  { cat:'game', name:'itch.io 免费素材', url:'https://itch.io/game-assets/free',
+    desc:'独立开发者素材平台,免费区量大。', license:'按各素材授权,注意查看' },
+  { cat:'game', name:'Game-Icons.net', url:'https://game-icons.net',
+    desc:'3000+ 游戏图标,含 RPG 技能/武器图标。', license:'CC BY,需署名' },
+  { cat:'game', name:'Craftpix', url:'https://craftpix.net',
+    desc:'2D 游戏素材(角色/UI/地图),有免费区。', license:'免费部分可商用' },
+  { cat:'game', name:'Poly.pizza', url:'https://poly.pizza',
+    desc:'低多边形 3D 模型库,即下即用。', license:'CC BY,需署名' },
+  { cat:'game', name:'Sketchfab', url:'https://sketchfab.com',
+    desc:'海量 3D 模型,可按 CC 授权筛选。', license:'按各模型授权筛选 CC' },
+  { cat:'game', name:'SFXR', url:'https://sfxr.me',
+    desc:'8-bit 复古音效在线生成器,即时合成。', license:'生成音效可商用' },
+  { cat:'game', name:'Unity Asset Store', url:'https://assetstore.unity.com',
+    desc:'Unity 官方商店,含大量免费素材。', license:'按各素材授权' },
+  { cat:'game', name:'Unreal Marketplace', url:'https://www.unrealengine.com/marketplace',
+    desc:'虚幻引擎官方商店,每月有免费资源。', license:'按各素材授权' },
+  { cat:'game', name:'GameDev Market', url:'https://www.gamedevmarket.net',
+    desc:'游戏开发素材市场,有免费专区。', license:'按各素材授权' },
+  { cat:'game', name:'GameArt2D', url:'https://www.gameart2d.com',
+    desc:'免费 2D 游戏素材包(角色/场景)。', license:'免费商用(保留说明)' },
+
+  /* ---------------- 游戏场景贴图 / 纹理 ---------------- */
+  { cat:'texture', name:'Poly Haven', url:'https://polyhaven.com', hot:true,
+    desc:'HDRI 环境贴图 / PBR 纹理 / 3D 模型三合一,游戏场景必备。', license:'CC0 公有领域' },
+  { cat:'texture', name:'AmbientCG', url:'https://ambientcg.com', hot:true,
+    desc:'免费 PBR 物理材质库(地砖/墙面/地表等),含法线/粗糙度等通道贴图。', license:'CC0 公有领域' },
+  { cat:'texture', name:'3D Textures', url:'https://3dtextures.me',
+    desc:'免费无缝 PBR 贴图,含烘焙好的多通道贴图,即下即用。', license:'免费商用' },
+  { cat:'texture', name:'ShareTextures', url:'https://www.sharetextures.com',
+    desc:'免费 PBR 贴图库,4K/8K 高分辨率,含材质预览。', license:'免费商用' },
+  { cat:'texture', name:'FreePBR', url:'https://freepbr.com',
+    desc:'免费 PBR 材质,游戏/渲染均可直接使用。', license:'免费商用' },
+  { cat:'texture', name:'TextureCan', url:'https://www.texturecan.com',
+    desc:'免费 PBR 贴图,附材质预览球,分类清晰。', license:'免费(部分)' },
+  { cat:'texture', name:'Texture Ninja', url:'https://texture.ninja',
+    desc:'CC0 无缝贴图,建筑/地面/布料等题材。', license:'CC0 公有领域' },
+  { cat:'texture', name:'Textures.com', url:'https://www.textures.com',
+    desc:'老牌贴图库,每天有免费下载额度。', license:'免费有限/付费' },
+  { cat:'texture', name:'Quixel Megascans', url:'https://quixel.com/megascans',
+    desc:'影视级扫描贴图/模型,Epic 账号免费使用。', license:'免费(需 Epic 账号)' },
+
+  /* ---------------- 视觉动态素材 ---------------- */
+  { cat:'motion', name:'LottieFiles', url:'https://lottiefiles.com', hot:true,
+    desc:'海量 Lottie 矢量动画(JSON),网页/App 直接播放,可在线调色。', license:'免费/付费(注意授权)' },
+  { cat:'motion', name:'Lordicon', url:'https://lordicon.com', hot:true,
+    desc:'精美动态图标,支持 Lottie/GIF/WebP 导出。', license:'免费有限(付费)' },
+  { cat:'motion', name:'Icons8 动态图标', url:'https://icons8.com/animated-icons',
+    desc:'免费动态图标,风格统一,可下载多种格式。', license:'免费(需署名)' },
+  { cat:'motion', name:'Animista', url:'https://animista.net',
+    desc:'CSS 动画在线生成,一键复制代码。', license:'免费' },
+  { cat:'motion', name:'Rive', url:'https://rive.app',
+    desc:'交互动画制作工具,可做状态机/角色动画。', license:'免费版可用' },
+  { cat:'motion', name:'Spline', url:'https://spline.design',
+    desc:'浏览器里做 3D 交互动画,可嵌入网页。', license:'免费版可用' },
+  { cat:'motion', name:'Giphy', url:'https://giphy.com',
+    desc:'全球最大 GIF 动态图库,表情/片段搜索。', license:'注意版权' },
+  { cat:'motion', name:'Motion Elements', url:'https://www.motionelements.com',
+    desc:'动态素材市场(粒子/转场/背景),有免费区。', license:'免费/付费混合' },
+
+  /* ---------------- 游戏角色素材 ---------------- */
+  { cat:'character', name:'Mixamo', url:'https://www.mixamo.com', hot:true,
+    desc:'Adobe 出品,免费 3D 角色库 + 一键动作绑定动画。', license:'免费商用' },
+  { cat:'character', name:'Quaternius', url:'https://quaternius.com', hot:true,
+    desc:'低多边形 3D 角色/怪物大礼包,风格可爱统一。', license:'CC0 公有领域' },
+  { cat:'character', name:'MakeHuman', url:'http://www.makehumancommunity.org',
+    desc:'开源人物建模软件,可导出带骨骼的人体模型。', license:'开源免费(CC0)' },
+  { cat:'character', name:'Renderpeople', url:'https://renderpeople.com',
+    desc:'真人扫描 3D 人物模型,有免费样例。', license:'免费样例/付费' },
+  { cat:'character', name:'itch.io 免费角色', url:'https://itch.io/game-assets/free/tag-characters',
+    desc:'免费角色素材聚合(2D 精灵/3D 模型),按标签筛选。', license:'按各素材授权' },
+  { cat:'character', name:'CGTrader 免费模型', url:'https://www.cgtrader.com/free-3d-models',
+    desc:'3D 模型市场,免费区含角色/场景。', license:'按各模型授权' },
+  { cat:'character', name:'BlenderKit', url:'https://www.blenderkit.com',
+    desc:'Blender 官方资产库,免费 CC0 角色/材质/模型。', license:'CC0/免费' },
+
+  /* ---------------- UI 设计参考 ---------------- */
+  { cat:'ui', name:'Dribbble', url:'https://dribbble.com', hot:true,
+    desc:'全球设计师作品集,UI/插画/品牌灵感首选。', license:'灵感参考(注意版权)' },
+  { cat:'ui', name:'Behance', url:'https://www.behance.net', hot:true,
+    desc:'Adobe 出品设计社区,作品质量高、分类全。', license:'灵感参考(注意版权)' },
+  { cat:'ui', name:'Awwwards', url:'https://www.awwwards.com', hot:true,
+    desc:'每日精选获奖网站,网页设计审美天花板。', license:'灵感参考' },
+  { cat:'ui', name:'Mobbin', url:'https://mobbin.com',
+    desc:'真实 App 界面截图库,做移动端交互必看。', license:'免费有限/付费全量' },
+  { cat:'ui', name:'Godly', url:'https://godly.website',
+    desc:'精选高级感网页设计,风格现代。', license:'灵感参考' },
+  { cat:'ui', name:'Land-book', url:'https://land-book.com',
+    desc:'Landing Page 灵感库,按行业分类。', license:'灵感参考' },
+  { cat:'ui', name:'SiteInspire', url:'https://www.siteinspire.com',
+    desc:'网页设计灵感库,可按风格筛选。', license:'灵感参考' },
+  { cat:'ui', name:'Httpster', url:'https://httpster.net',
+    desc:'创意网站展示,偏艺术感设计。', license:'灵感参考' },
+  { cat:'ui', name:'Collect UI', url:'https://collectui.com',
+    desc:'按 UI 组件/场景分类的界面灵感(登录、列表等)。', license:'灵感参考' },
+  { cat:'ui', name:'Pttrns', url:'https://pttrns.com',
+    desc:'移动端 UI 模式库,App 界面截图。', license:'灵感参考' },
+  { cat:'ui', name:'Dark Mode Design', url:'https://www.darkmodedesign.com',
+    desc:'专注深色模式界面灵感。', license:'灵感参考' },
+  { cat:'ui', name:'Coolors', url:'https://coolors.co',
+    desc:'在线配色生成器,一键锁定配色方案。', license:'免费使用' },
+  { cat:'ui', name:'Color Hunt', url:'https://colorhunt.co',
+    desc:'精选配色方案库,一键复制色值。', license:'免费使用' },
+  { cat:'ui', name:'Typewolf', url:'https://www.typewolf.com',
+    desc:'字体排版灵感,看真实网站用什么字体。', license:'灵感参考' },
+  { cat:'ui', name:'Fonts In Use', url:'https://fontsinuse.com',
+    desc:'字体实际应用案例库,搜字体看效果。', license:'灵感参考' },
+  /* ---------------- 图标素材 ---------------- */
+  { cat:'icon', name:'Flaticon', url:'https://www.flaticon.com', hot:true,
+    desc:'图标数量最多、风格统一,免费需署名。', license:'免费需署名(付费可免)' },
+  { cat:'icon', name:'Iconify', url:'https://icon-sets.iconify.design', hot:true,
+    desc:'聚合 150+ 图标集,前端可直接引用。', license:'各图标集开源授权' },
+  { cat:'icon', name:'Font Awesome', url:'https://fontawesome.com',
+    desc:'最流行的图标字体,免费版够用。', license:'免费版可商用' },
+  { cat:'icon', name:'Heroicons', url:'https://heroicons.com',
+    desc:'Tailwind 团队出品,简约线性/实心图标。', license:'MIT 开源' },
+  { cat:'icon', name:'Lucide', url:'https://lucide.dev',
+    desc:'现代开源图标库,一致性好。', license:'ISC 开源' },
+  { cat:'icon', name:'Remix Icon', url:'https://remixicon.com',
+    desc:'开源中性风格图标,覆盖面广。', license:'Apache 2.0' },
+  { cat:'icon', name:'Phosphor Icons', url:'https://phosphoricons.com',
+    desc:'6 种粗细可调,风格统一。', license:'MIT 开源' },
+  { cat:'icon', name:'Tabler Icons', url:'https://tabler.io/icons',
+    desc:'5000+ 开源线性图标。', license:'MIT 开源' },
+  { cat:'icon', name:'Material Symbols', url:'https://fonts.google.com/icons',
+    desc:'Google 材质图标,数量大、风格全。', license:'Apache 2.0' },
+  { cat:'icon', name:'SVG Repo', url:'https://www.svgrepo.com',
+    desc:'SVG 图标聚合搜索,可直接复制代码。', license:'各图标集授权' },
+  { cat:'icon', name:'IconPark', url:'https://iconpark.oceanengine.com',
+    desc:'字节跳动开源图标库,可在线调色。', license:'Apache 2.0' },
+  { cat:'icon', name:'Noun Project', url:'https://thenounproject.com',
+    desc:'图标设计社区,题材广。', license:'部分免费(需署名)' },
+  { cat:'icon', name:'Iconscout', url:'https://iconscout.com',
+    desc:'图标+插画+3D,免费区可用。', license:'免费有限(需署名)' },
+  { cat:'icon', name:'Iconfinder', url:'https://www.iconfinder.com',
+    desc:'图标库,可按免费商用筛选。', license:'免费/付费混合' },
+  { cat:'icon', name:'Bootstrap Icons', url:'https://icons.getbootstrap.com',
+    desc:'Bootstrap 官方开源图标。', license:'MIT 开源' },
+  { cat:'icon', name:'Feather Icons', url:'https://feathericons.com',
+    desc:'极简线性图标,轻量优雅。', license:'MIT 开源' },
+
+  /* ---------------- 字体下载 ---------------- */
+  { cat:'font', name:'Google Fonts', url:'https://fonts.google.com', hot:true,
+    desc:'免费开源字体库,含思源黑体等中文字体。', license:'开源字体,免费商用' },
+  { cat:'font', name:'猫啃网', url:'https://www.maoken.com', hot:true,
+    desc:'免费可商用中文字体大全,更新勤快。', license:'免费商用(逐款确认)' },
+  { cat:'font', name:'100font', url:'https://www.100font.com',
+    desc:'免费商用字体下载,中文为主。', license:'免费商用' },
+  { cat:'font', name:'字体传奇', url:'http://ziticq.com',
+    desc:'设计师免费字体库,含艺术字体。', license:'免费商用为主' },
+  { cat:'font', name:'Font Squirrel', url:'https://www.fontsquirrel.com',
+    desc:'精选免费可商用英文字体。', license:'免费商用(已筛选)' },
+  { cat:'font', name:'Font Library', url:'https://fontlibrary.org',
+    desc:'开源字体库,按授权筛选。', license:'开源字体' },
+  { cat:'font', name:'DaFont', url:'https://www.dafont.com',
+    desc:'海量免费字体,分类细。', license:'注意逐款查看授权' },
+  { cat:'font', name:'Fontspace', url:'https://www.fontspace.com',
+    desc:'免费字体下载,含手写/装饰字体。', license:'注意逐款查看授权' },
+  { cat:'font', name:'1001 Fonts', url:'https://www.1001fonts.com',
+    desc:'免费字体库,可商用筛选。', license:'免费/需确认' },
+  { cat:'font', name:'阿里巴巴普惠体', url:'https://fonts.alibabagroup.com',
+    desc:'阿里官方免费商用中文字体。', license:'免费商用' },
+  { cat:'font', name:'小米 MiSans', url:'https://hyperos.mi.com/font',
+    desc:'小米免费商用字体,现代感强。', license:'免费商用' },
+  { cat:'font', name:'得意黑 Smiley Sans', url:'https://github.com/atelier-anchor/smiley-sans',
+    desc:'开源倾斜黑体,标题感强。', license:'开源,免费商用' },
+  { cat:'font', name:'霞鹜文楷 LXGW', url:'https://github.com/lxgw/LxgwWenKai',
+    desc:'开源楷体,适合正文/阅读。', license:'开源,免费商用' },
+  { cat:'font', name:'HarmonyOS Sans', url:'https://developer.huawei.com/consumer/cn/design/resource/',
+    desc:'华为鸿蒙字体,免费商用。', license:'免费商用' },
+
+  /* ---------------- 设计工具 ---------------- */
+  { cat:'tool', name:'Figma', url:'https://www.figma.com', hot:true,
+    desc:'在线 UI 设计协作工具,免费版够个人用。', license:'免费版可用' },
+  { cat:'tool', name:'Photopea', url:'https://www.photopea.com', hot:true,
+    desc:'免费在线版 Photoshop,浏览器直接打开 PSD。', license:'免费使用' },
+  { cat:'tool', name:'Canva', url:'https://www.canva.com',
+    desc:'在线设计/海报/PPT,模板丰富。', license:'免费版可用' },
+  { cat:'tool', name:'Penpot', url:'https://penpot.app',
+    desc:'开源设计协作工具,可自部署。', license:'开源免费' },
+  { cat:'tool', name:'Excalidraw', url:'https://excalidraw.com',
+    desc:'手绘风白板/草图,做原型快。', license:'开源免费' },
+  { cat:'tool', name:'Squoosh', url:'https://squoosh.app',
+    desc:'Google 图片压缩,本地处理不上传。', license:'免费使用' },
+  { cat:'tool', name:'TinyPNG', url:'https://tinypng.com',
+    desc:'图片压缩,支持 WebP/PNG/JPG。', license:'免费(有量限制)' },
+  { cat:'tool', name:'remove.bg', url:'https://www.remove.bg',
+    desc:'一键 AI 抠图去背景。', license:'免费(低分辨率)' },
+  { cat:'tool', name:'SVGOMG', url:'https://jakearchibald.github.io/svgomg',
+    desc:'SVG 优化压缩工具。', license:'免费使用' },
+  { cat:'tool', name:'GIMP', url:'https://www.gimp.org',
+    desc:'开源 PS 替代,功能强大。', license:'开源免费' },
+  { cat:'tool', name:'Inkscape', url:'https://inkscape.org',
+    desc:'开源矢量绘图,替代 Illustrator。', license:'开源免费' },
+  { cat:'tool', name:'Blender', url:'https://www.blender.org',
+    desc:'开源 3D 建模/动画全流程。', license:'开源免费' },
+  { cat:'tool', name:'Framer', url:'https://www.framer.com',
+    desc:'设计转网站,做落地页快。', license:'免费版可用' },
+  { cat:'tool', name:'Uizard', url:'https://uizard.io',
+    desc:'AI 生成 UI 原型/截图转设计。', license:'免费版可用' },
+  { cat:'tool', name:'Vectr', url:'https://vectr.com',
+    desc:'轻量在线矢量设计。', license:'免费使用' },
+
+  /* ---------------- 电子书 / 图书馆 ---------------- */
+  { cat:'book', name:'Project Gutenberg', url:'https://www.gutenberg.org', hot:true,
+    desc:'古腾堡计划,7 万+ 公有领域电子书,免费下载。', license:'公有领域' },
+  { cat:'book', name:'Standard Ebooks', url:'https://standardebooks.org', hot:true,
+    desc:'精心排版校对的公有领域书籍,阅读体验极佳。', license:'公有领域' },
+  { cat:'book', name:'Internet Archive', url:'https://archive.org', hot:true,
+    desc:'互联网档案馆,海量图书/影像/网页存档,可借阅。', license:'公有领域/借阅' },
+  { cat:'book', name:'Open Library', url:'https://openlibrary.org',
+    desc:'开放图书馆,给每本书建一个网页,可在线借阅。', license:'借阅(免费注册)' },
+  { cat:'book', name:'ManyBooks', url:'https://manybooks.net',
+    desc:'5 万+ 免费电子书,格式多(EPUB/PDF/Kindle)。', license:'公有领域为主' },
+  { cat:'book', name:'Feedbooks', url:'https://www.feedbooks.com',
+    desc:'公有领域+原创电子书,排版规范。', license:'公有领域区免费' },
+  { cat:'book', name:'OpenStax', url:'https://openstax.org',
+    desc:'免费大学教科书,权威审校,中英皆有。', license:'免费使用(CC)' },
+  { cat:'book', name:'LibreTexts', url:'https://libretexts.org',
+    desc:'开放教材平台,理/工/社科教材齐全。', license:'开放授权' },
+  { cat:'book', name:'DOAB', url:'https://www.doabooks.org',
+    desc:'开放获取学术书籍目录,检索同行评议专著。', license:'开放获取' },
+  { cat:'book', name:'OAPEN', url:'https://oapen.org',
+    desc:'开放获取学术书库,人文社科为主。', license:'开放获取' },
+  { cat:'book', name:'HathiTrust', url:'https://www.hathitrust.org',
+    desc:'高校图书馆联合数字书库,学术检索利器。', license:'公有领域可读' },
+  { cat:'book', name:'LibriVox', url:'https://librivox.org',
+    desc:'公有领域书籍免费有声书,志愿者朗读。', license:'公有领域' },
+  { cat:'book', name:'Loyal Books', url:'https://www.loyalbooks.com',
+    desc:'免费有声书+电子书下载。', license:'公有领域' },
+  { cat:'book', name:'Google Books', url:'https://books.google.com',
+    desc:'谷歌图书,可搜索预览,部分全文阅读。', license:'视版权情况' },
+  { cat:'book', name:'书格', url:'https://www.shuge.org', hot:true,
+    desc:'高品质中文古籍数字图书馆,免费下载。', license:'公有领域(古籍)' },
+  { cat:'book', name:'中国哲学书电子化计划', url:'https://ctext.org',
+    desc:'中文古籍全文检索,先秦两汉文献为主。', license:'免费阅读/检索' },
+  { cat:'book', name:'中国国家图书馆', url:'http://www.nlc.cn',
+    desc:'国图数字资源,古籍/期刊/电子书在线阅览。', license:'在线阅览(注册)' },
+
+  /* ---------------- 教育 / 备课(教科书·教案·课件) ---------------- */
+  { cat:'edu', name:'国家中小学智慧教育平台', url:'https://basic.smartedu.cn', hot:true,
+    desc:'教育部官方平台,人教/苏教/北师大等各版本电子教材 + 精品课 + 教案课件。', license:'免费官方' },
+  { cat:'edu', name:'人民教育出版社', url:'https://www.pep.com.cn', hot:true,
+    desc:'人教版官方,教材电子版、教师用书、培训资源。', license:'免费官方' },
+  { cat:'edu', name:'电子课本网', url:'http://www.dzkbw.com',
+    desc:'汇总人教/苏教/北师大/沪教等多版本电子课本,在线翻阅,与国内教材版本匹配。', license:'免费' },
+  { cat:'edu', name:'北京师范大学出版集团', url:'https://www.bnupg.com',
+    desc:'北师大版教材电子版及配套资源。', license:'免费官方' },
+  { cat:'edu', name:'外语教学与研究出版社', url:'https://www.fltrp.com',
+    desc:'外研版英语教材及教师资源。', license:'免费官方' },
+  { cat:'edu', name:'高等教育出版社', url:'https://www.hep.com.cn',
+    desc:'高教版大学/中职教材及配套资源。', license:'免费官方' },
+  { cat:'edu', name:'国家教育资源公共服务平台', url:'https://www.eduyun.cn',
+    desc:'一师一优课资源,部级优课/教案/课件在线看。', license:'免费官方' },
+  { cat:'edu', name:'智慧职教', url:'https://www.icve.com.cn',
+    desc:'职业教育资源库,职校教材/课件/微课。', license:'免费官方' },
+  { cat:'edu', name:'学科网', url:'https://www.zxxk.com',
+    desc:'各学科教案/课件/试卷下载,部分免费。', license:'部分免费' },
+  { cat:'edu', name:'21世纪教育网', url:'https://www.21cnjy.com',
+    desc:'中小学教案课件试卷,部分免费。', license:'部分免费' },
+  { cat:'edu', name:'教习网', url:'https://www.51jiaoxi.com',
+    desc:'教案/课件/试卷资源,按年级科目分类。', license:'部分免费' },
+  { cat:'edu', name:'七彩课堂', url:'https://www.7cxk.com',
+    desc:'配套教案课件,与主流教材版本同步。', license:'部分免费' },
+  { cat:'edu', name:'绿色圃中小学教育网', url:'http://www.lspjy.com',
+    desc:'老牌备课资源站,教案/课件/试题。', license:'免费' },
+  { cat:'edu', name:'101教育PPT', url:'https://ppt.101.com',
+    desc:'备课课件素材库,海量 PPT 模板/习题。', license:'免费' },
+
+  /* ---------------- Skill / AI 技能 ---------------- */
+  { cat:'skill', name:'Agent Skills 标准', url:'https://agentskills.io', hot:true,
+    desc:'Agent Skills 统一规范 + 官方仓库,跨平台通用。', license:'开放标准' },
+  { cat:'skill', name:'Anthropic Skills 官方', url:'https://github.com/anthropics/skills', hot:true,
+    desc:'官方 skill 仓库:文档处理、Web 开发等高质量技能。', license:'开源(官方)' },
+  { cat:'skill', name:'Pi Skills', url:'https://github.com/badlogic/pi-skills',
+    desc:'Pi 专用 skill:搜索、浏览器自动化、Google API、转录。', license:'开源' },
+  { cat:'skill', name:'awesome-claude-skills', url:'https://github.com/ComposioHQ/awesome-claude-skills',
+    desc:'精选 Claude Skills 列表,持续更新。', license:'开放列表' },
+  { cat:'skill', name:'awesome-agent-skills', url:'https://github.com/VoltAgent/awesome-agent-skills', hot:true,
+    desc:'1000+ Agent Skill 合集,分类整理。', license:'开放列表' },
+  { cat:'skill', name:'awesome-openclaw-skills', url:'https://github.com/VoltAgent/awesome-openclaw-skills',
+    desc:'5400+ skill,分类筛选,收录量最大。', license:'开放列表' },
+  { cat:'skill', name:'awesome-claude-code', url:'https://github.com/hesreallyhim/awesome-claude-code',
+    desc:'Claude Code 资源大全(技能/提示词/工具)。', license:'开放列表' },
+  { cat:'skill', name:'awesome-copilot', url:'https://github.com/github/awesome-copilot',
+    desc:'GitHub 官方社区 Copilot skill/指令集合。', license:'开放列表' },
+  { cat:'skill', name:'superpowers', url:'https://github.com/obra/superpowers', hot:true,
+    desc:'热门 skill 框架 + 开发方法论,结构可借鉴。', license:'开源框架' },
+  { cat:'skill', name:'Skills for Engineers', url:'https://github.com/mattpocock/skills',
+    desc:'Matt Pocock 的工程师向 skill 集。', license:'开源' },
+  { cat:'skill', name:'agent-skills', url:'https://github.com/addyosmani/agent-skills',
+    desc:'Addy Osmani 的生产级工程 skill。', license:'开源' },
+
+  /* ---------------- 语音 / AI 配音 ---------------- */
+  { cat:'voice', name:'ElevenLabs', url:'https://elevenlabs.io', hot:true,
+    desc:'顶级 AI 语音合成与克隆,多语言,免费额度。', license:'免费额度+付费' },
+  { cat:'voice', name:'Fish Audio', url:'https://fish.audio',
+    desc:'开源 Fish Speech 在线版,AI 语音合成,免费额度。', license:'免费额度' },
+  { cat:'voice', name:'Microsoft Azure TTS', url:'https://azure.microsoft.com/products/ai-services/text-to-speech',
+    desc:'微软语音合成,音色库全,免费额度。', license:'免费额度+付费' },
+  { cat:'voice', name:'讯飞开放平台 TTS', url:'https://www.xfyun.cn',
+    desc:'中文语音合成老牌,免费额度。', license:'免费额度' },
+  { cat:'voice', name:'火山引擎 TTS', url:'https://www.volcengine.com/product/tts',
+    desc:'字节跳动语音合成,免费额度。', license:'免费额度' },
+  { cat:'voice', name:'GPT-SoVITS', url:'https://github.com/RVC-Boss/GPT-SoVITS', hot:true,
+    desc:'开源语音克隆,少样本即可复刻音色,可本地跑。', license:'开源(MIT)' },
+  { cat:'voice', name:'ChatTTS', url:'https://github.com/2noise/ChatTTS',
+    desc:'开源对话式 TTS,自然口语感强。', license:'开源(CC BY-NC 4.0)' },
+  { cat:'voice', name:'CosyVoice', url:'https://github.com/FunAudioLLM/CosyVoice',
+    desc:'阿里通义开源 TTS,支持声音复刻。', license:'开源(Apache 2.0)' },
+  { cat:'voice', name:'Fish Speech', url:'https://github.com/fishaudio/fish-speech',
+    desc:'开源 TTS 模型,可本地部署。', license:'开源' },
+  { cat:'voice', name:'Coqui TTS', url:'https://github.com/coqui-ai/TTS',
+    desc:'开源 TTS 库,多模型多语言。', license:'开源(MPL 2.0)' },
+  { cat:'voice', name:'Common Voice', url:'https://commonvoice.mozilla.org', hot:true,
+    desc:'Mozilla 开放语音数据集,可下载/贡献。', license:'开放数据(CC0)' },
+  { cat:'voice', name:'OpenSLR', url:'https://www.openslr.org',
+    desc:'语音数据集汇总,含中文语料。', license:'各数据集授权' },
+  { cat:'voice', name:'Hugging Face 音频数据集', url:'https://huggingface.co/datasets',
+    desc:'海量语音/音频数据集,可直接加载。', license:'各数据集授权' },
+
+  /* ---------------- 白噪音 / 助眠 ---------------- */
+  { cat:'noise', name:'A Soft Murmur', url:'https://asoftmurmur.com', hot:true,
+    desc:'在线混音环境音(雨/风/篝火),自由组合。', license:'免费' },
+  { cat:'noise', name:'myNoise', url:'https://mynoise.net', hot:true,
+    desc:'海量噪声发生器,可调频率,助眠/专注神器。', license:'免费(可捐赠)' },
+  { cat:'noise', name:'Rainy Mood', url:'https://rainymood.com',
+    desc:'经典雨声白噪音,即开即用。', license:'免费' },
+  { cat:'noise', name:'Noisli', url:'https://www.noisli.com',
+    desc:'背景音混音器,配色舒缓。', license:'免费/付费' },
+  { cat:'noise', name:'Defonic', url:'https://defonic.com',
+    desc:'环境音合成,海洋/森林/雨。', license:'免费' },
+  { cat:'noise', name:'Noises.online', url:'https://noises.online',
+    desc:'在线白噪音生成器。', license:'免费' },
+  { cat:'noise', name:'ambient-mixer', url:'https://www.ambient-mixer.com',
+    desc:'社区环境音混音(咖啡馆/森林/太空)。', license:'免费' },
+  { cat:'noise', name:'Rain.today', url:'https://rain.today',
+    desc:'纯雨声,干净无广告。', license:'免费' },
+  { cat:'noise', name:'Soundrown', url:'https://soundrown.com',
+    desc:'极简白噪音(雨/海浪/鸟鸣)。', license:'免费' },
+  { cat:'noise', name:'Calm', url:'https://www.calm.com',
+    desc:'冥想/助眠 App,睡眠故事。', license:'免费/付费' },
+  { cat:'noise', name:'Endel', url:'https://endel.io',
+    desc:'自适应声景,根据环境实时生成。', license:'免费/付费' },
+
+  /* ---------------- 音乐直链(可获取 URL 播放) ---------------- */
+  { cat:'direct', name:'SoundHelix', url:'https://www.soundhelix.com', hot:true,
+    desc:'免费测试 MP3 直链(Song-1~17),播放器测试首选。', license:'免费商用' },
+  { cat:'direct', name:'Internet Archive 音频', url:'https://archive.org/details/audio', hot:true,
+    desc:'海量音频,每个条目有稳定直链可引用。', license:'公有领域/CC' },
+  { cat:'direct', name:'Wikimedia Commons 音频', url:'https://commons.wikimedia.org/wiki/Category:Audio_files',
+    desc:'直链音频文件,公有领域/CC 授权。', license:'公有领域/CC' },
+  { cat:'direct', name:'Freesound', url:'https://freesound.org',
+    desc:'音效直链下载,注册后可取直链。', license:'CC 授权' },
+  { cat:'direct', name:'Jamendo', url:'https://www.jamendo.com',
+    desc:'免费音乐,支持直链下载。', license:'CC 授权' },
+  { cat:'direct', name:'Pixabay Music', url:'https://pixabay.com/music',
+    desc:'免费音乐直链,可商用。', license:'免费商用' },
+  { cat:'direct', name:'Free Music Archive', url:'https://freemusicarchive.org',
+    desc:'CC 音乐,直链下载。', license:'CC 授权' },
+  { cat:'direct', name:'Incompetech', url:'https://incompetech.com',
+    desc:'直链 MP3 下载,配乐库。', license:'CC BY 需署名' },
+  { cat:'direct', name:'Bensound', url:'https://www.bensound.com',
+    desc:'直链下载配乐,免费需署名。', license:'免费需署名' },
+
+  /* ---------------- 像素素材 ---------------- */
+  { cat:'pixel', name:'LPC 解放像素杯', url:'https://lpc.opengameart.org', hot:true,
+    desc:'通用像素角色+全套动画(待机/走路/攻击),角色可换装。', license:'CC BY-SA 3.0 / GPL' },
+  { cat:'pixel', name:'Calciumtrice 怪物动画', url:'https://opengameart.org/users/calciumtrice', hot:true,
+    desc:'CC0 动画怪物/宠物精灵图,自带全套动作,养成类首选。', license:'CC0 免费商用' },
+  { cat:'pixel', name:'Pixel Frog', url:'https://pixelfrog-assets.itch.io', hot:true,
+    desc:'免费动画像素包:小剑士/寻宝猎人/像素冒险者。', license:'免费商用' },
+  { cat:'pixel', name:'Ansimuz', url:'https://ansimuz.itch.io',
+    desc:'免费像素背景+角色(阳光之地、地牢等)。', license:'免费商用' },
+  { cat:'pixel', name:'Cainos', url:'https://cainos.itch.io',
+    desc:'免费像素包:俯视角/平台游戏。', license:'免费商用(注明作者)' },
+  { cat:'pixel', name:'0x72', url:'https://0x72.itch.io',
+    desc:'地牢瓦片集 + 像素冒险角色(免费)。', license:'免费(CC0部分)' },
+  { cat:'pixel', name:'Szadi Art', url:'https://szadiart.itch.io',
+    desc:'免费像素包:洞穴/平台/角色。', license:'免费商用' },
+  { cat:'pixel', name:'Pixanna / Celianna', url:'https://pixanna.nl',
+    desc:'免费像素瓦片集(地图/场景)。', license:'免费商用(注明)' },
+  { cat:'pixel', name:'bevouliin', url:'https://bevouliin.com',
+    desc:'免费游戏美术(含像素生物/角色动画)。', license:'免费/付费混合' },
+  { cat:'pixel', name:'GameArtGuppy', url:'https://www.gameartguppy.com',
+    desc:'免费游戏美术素材,部分像素动画。', license:'免费/付费混合' },
+  { cat:'pixel', name:'itch.io 免费像素标签', url:'https://itch.io/game-assets/free/tag-pixel-art',
+    desc:'免费像素素材聚合,按标签筛(宠物/怪物/角色)。', license:'按各素材授权' },
+  { cat:'pixel', name:'Piskel', url:'https://www.piskelapp.com',
+    desc:'免费在线像素画编辑器,自己画动画帧。', license:'免费' },
+  { cat:'pixel', name:'Pixelorama', url:'https://orama-interactive.itch.io/pixelorama',
+    desc:'开源像素编辑器,支持动画。', license:'开源免费' },
+  { cat:'pixel', name:'LibreSprite', url:'https://libresprite.github.io',
+    desc:'Aseprite 的免费开源分支。', license:'开源免费' },
+];
+
+const CATS = {
+  image: { label:'图片素材' },
+  video: { label:'视频素材' },
+  audio: { label:'BGM / 音乐' },
+  game:  { label:'游戏素材' },
+  ui:    { label:'UI 设计参考' },
+  book:  { label:'电子书 / 图书馆' },
+  icon:  { label:'图标素材' },
+  font:  { label:'字体下载' },
+  tool:  { label:'设计工具' },
+  skill: { label:'Skill 技能' },
+  voice:  { label:'语音 / AI 配音' },
+  noise:  { label:'白噪音 / 助眠' },
+  direct: { label:'音乐直链' },
+  pixel:  { label:'像素素材' },
+  texture:  { label:'贴图 / 纹理' },
+  motion:   { label:'动态素材' },
+  character:{ label:'游戏角色' },
+  edu:      { label:'教育 / 备课' },
+};
+
+const main = document.getElementById('main');
+const chipsEl = document.getElementById('chips');
+const searchEl = document.getElementById('search');
+const clearSearch = document.getElementById('clearSearch');
+const sortSel = document.getElementById('sortSel');
+const statsEl = document.getElementById('stats');
+const toTop = document.getElementById('toTop');
+const exportBtn = document.getElementById('exportBtn');
+const importBtn = document.getElementById('importBtn');
+const importFile = document.getElementById('importFile');
+let currentCat = 'all';
+let keyword = '';
+let onlyFav = false;
+let sortMode = 'default';
+
+/* 收藏与备注(存在浏览器 localStorage 里) */
+const KEY_FAV = 'asset-nav-favs';
+const KEY_NOTE = 'asset-nav-notes';
+function loadSet(k){ try { return new Set(JSON.parse(localStorage.getItem(k)) || []); } catch(e){ return new Set(); } }
+function loadObj(k){ try { return JSON.parse(localStorage.getItem(k)) || {}; } catch(e){ return {}; } }
+let favs = loadSet(KEY_FAV);
+let notes = loadObj(KEY_NOTE);
+function persistFavs(){ try { localStorage.setItem(KEY_FAV, JSON.stringify([...favs])); } catch(e){} }
+function persistNotes(){ try { localStorage.setItem(KEY_NOTE, JSON.stringify(notes)); } catch(e){} }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+function renderChips() {
+  const counts = { all: SITES.length };
+  Object.keys(CATS).forEach(c => counts[c] = SITES.filter(s => s.cat === c).length);
+  const order = ['all', 'image', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'voice', 'noise', 'direct', 'pixel'];
+  const catChips = order.map(c =>
+    `<button class="chip ${c === currentCat && !onlyFav ? 'active' : ''}" data-cat="${c}">
+      ${c === 'all' ? '全部' : CATS[c].label.split(' ').slice(1).join(' ')}
+      <span class="count">${counts[c]}</span>
+    </button>`
+  ).join('');
+  const favChip = `<button class="chip ${onlyFav ? 'active' : ''}" data-cat="__fav">
+    收藏<span class="count">${favs.size}</span>
+  </button>`;
+  chipsEl.innerHTML = catChips + favChip;
+}
+
+function filtered() {
+  const kw = keyword.trim().toLowerCase();
+  let list = SITES.filter(s => {
+    if (currentCat !== 'all' && s.cat !== currentCat) return false;
+    if (onlyFav && !favs.has(s.url)) return false;
+    if (!kw) return true;
+    return (s.name + s.desc + s.license + (notes[s.url] || '')).toLowerCase().includes(kw);
+  });
+  if (sortMode === 'name') list = [...list].sort((a, b) => a.name.localeCompare(b.name, 'zh'));
+  return list;
+}
+
+function render() {
+  const list = filtered();
+  statsEl.innerHTML = `共 <b>${SITES.length}</b> 个站点 · 当前显示 <b>${list.length}</b> 个 · 已收藏 <b>${favs.size}</b> 个`;
+  if (!list.length) {
+    main.innerHTML = `<div class="empty">没有找到匹配的网站,换个关键词试试</div>`;
+    return;
+  }
+  const grouped = {};
+  list.forEach(s => { (grouped[s.cat] = grouped[s.cat] || []).push(s); });
+
+  main.innerHTML = Object.entries(grouped).map(([cat, arr]) => `
+    <div class="section-title">
+      <span class="bar"></span>${CATS[cat].label}<span class="num">(${arr.length})</span>
+    </div>
+    <div class="grid">
+      ${arr.map((s, i) => `
+        <div class="card" style="--d:${Math.min(i * 30, 240)}ms">
+          <div class="card-top">
+            
+            <div class="card-name">
+              <a href="${s.url}" target="_blank" rel="noopener">${s.name}</a>
+            </div>
+            ${s.hot ? '<span class="badge hot-badge">推荐</span>' : ''}
+            <button class="star-btn ${favs.has(s.url) ? 'on' : ''}" data-url="${s.url}" title="收藏/取消收藏">${favs.has(s.url) ? '★' : '☆'}</button>
+          </div>
+          <div class="card-desc">${s.desc}</div>
+          ${notes[s.url] ? `<div class="card-note">${escapeHtml(notes[s.url])}</div>` : ''}
+          <div class="card-meta">
+            <span class="badge ${s.license.includes('署名') ? 'warn' : ''}">${s.license}</span>
+            <button class="note-btn ${notes[s.url] ? 'has-note' : ''}" data-note="${s.url}">备注</button>
+            <a class="visit" href="${s.url}" target="_blank" rel="noopener">前往 →</a>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+chipsEl.addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  if (chip.dataset.cat === '__fav') {
+    onlyFav = !onlyFav;
+    if (onlyFav) currentCat = 'all';
+  } else {
+    currentCat = chip.dataset.cat;
+    onlyFav = false;
+  }
+  renderChips(); render();
+});
+main.addEventListener('click', e => {
+  const star = e.target.closest('.star-btn');
+  if (star) {
+    const url = star.dataset.url;
+    if (favs.has(url)) favs.delete(url); else favs.add(url);
+    persistFavs();
+    renderChips(); render();
+    return;
+  }
+  const nb = e.target.closest('.note-btn');
+  if (nb) {
+    const url = nb.dataset.note;
+    const cur = notes[url] || '';
+    const val = prompt('给这个网站写个备注(清空即删除):', cur);
+    if (val === null) return;
+    if (val.trim() === '') delete notes[url]; else notes[url] = val.trim();
+    persistNotes();
+    render();
+  }
+});
+searchEl.addEventListener('input', e => {
+  keyword = e.target.value;
+  clearSearch.classList.toggle('show', !!keyword);
+  render();
+});
+clearSearch.addEventListener('click', () => {
+  searchEl.value = ''; keyword = '';
+  clearSearch.classList.remove('show');
+  render(); searchEl.focus();
+});
+sortSel.addEventListener('change', e => { sortMode = e.target.value; render(); });
+
+/* 返回顶部 */
+window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 400));
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* 键盘快捷键:/ 聚焦搜索,Esc 清空 */
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && document.activeElement !== searchEl) {
+    e.preventDefault(); searchEl.focus();
+  } else if (e.key === 'Escape' && document.activeElement === searchEl) {
+    searchEl.value = ''; keyword = '';
+    clearSearch.classList.remove('show');
+    render(); searchEl.blur();
+  }
+});
+
+/* 导出 / 导入收藏与备注 */
+exportBtn.addEventListener('click', () => {
+  const data = { exportedAt: new Date().toISOString(), favs: [...favs], notes };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Codyhome-收藏备份.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+importBtn.addEventListener('click', () => importFile.click());
+importFile.addEventListener('change', e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      const valid = u => SITES.some(s => s.url === u);
+      if (Array.isArray(d.favs)) d.favs.filter(valid).forEach(u => favs.add(u));
+      if (d.notes && typeof d.notes === 'object') {
+        Object.keys(d.notes).forEach(u => { if (valid(u)) notes[u] = d.notes[u]; });
+      }
+      persistFavs(); persistNotes();
+      renderChips(); render();
+      alert('✅ 导入成功(已合并进当前收藏/备注)');
+    } catch (err) {
+      alert('❌ 导入失败:文件格式不正确');
+    }
+  };
+  r.readAsText(f);
+  e.target.value = '';
+});
+
+document.getElementById('heroTotal').textContent = SITES.length;
+renderChips(); render();
+</script>
+</body>
+</html>
