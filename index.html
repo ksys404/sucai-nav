@@ -209,7 +209,7 @@
    在这里添加/修改网站 —— 每行一个,照着现有格式复制即可
    cat 取值: image(图片) / video(视频) / audio(BGM音乐) / game(游戏) / texture(贴图纹理)
    / motion(动态素材) / character(游戏角色) / ui(UI参考) / icon(图标) / font(字体)
-   / tool(工具) / book(电子书) / edu(教育备课) / skill(技能) / voice(语音)
+   / tool(工具) / book(电子书) / edu(教育备课) / skill(技能) / mcp(MCP合集) / voice(语音)
    / noise(白噪音) / direct(音乐直链) / pixel(像素)
    license 建议写清:免费商用 / 需署名 / CC0 等
    hot: true 会显示「推荐」徽标(可选)
@@ -592,6 +592,30 @@ const SITES = [
   { cat:'skill', name:'agent-skills', url:'https://github.com/addyosmani/agent-skills',
     desc:'Addy Osmani 的生产级工程 skill。', license:'开源' },
 
+  /* ---------------- MCP 合集(Model Context Protocol) ---------------- */
+  { cat:'mcp', name:'MCP 官方文档', url:'https://modelcontextprotocol.io', hot:true,
+    desc:'Model Context Protocol 官方规范与文档,入门首选。', license:'开放规范' },
+  { cat:'mcp', name:'官方 MCP Servers', url:'https://github.com/modelcontextprotocol/servers', hot:true,
+    desc:'官方参考服务器集合:Filesystem、GitHub、Memory、Fetch 等。', license:'开源(MIT)' },
+  { cat:'mcp', name:'awesome-mcp-servers', url:'https://github.com/punkpeye/awesome-mcp-servers', hot:true,
+    desc:'最全的 MCP 服务器精选列表,持续更新、分类清晰。', license:'开放列表' },
+  { cat:'mcp', name:'awesome-mcp-clients', url:'https://github.com/punkpeye/awesome-mcp-clients',
+    desc:'MCP 客户端(桌面/CLI/网页)精选列表。', license:'开放列表' },
+  { cat:'mcp', name:'Smithery', url:'https://smithery.ai', hot:true,
+    desc:'MCP 服务器市场 + 一键托管,注册即可部署。', license:'免费/付费' },
+  { cat:'mcp', name:'Glama MCP Registry', url:'https://glama.ai/mcp/servers',
+    desc:'可搜索的 MCP 服务器注册表,含评分与安装说明。', license:'免费' },
+  { cat:'mcp', name:'mcp.so', url:'https://mcp.so',
+    desc:'MCP 目录,支持按用途/客户端筛选,中文友好。', license:'免费' },
+  { cat:'mcp', name:'PulseMCP', url:'https://www.pulsemcp.com',
+    desc:'MCP 服务器目录 + 博客资讯,更新勤快。', license:'免费' },
+  { cat:'mcp', name:'Composio MCP', url:'https://mcp.composio.dev',
+    desc:'托管式 MCP 平台,现成连接 GitHub/Gmail/数据库等。', license:'免费额度/付费' },
+  { cat:'mcp', name:'mcp.run', url:'https://www.mcp.run',
+    desc:'MCP 服务器分发与运行平台,一键安装。', license:'免费/付费' },
+  { cat:'mcp', name:'mcp-get', url:'https://mcp-get.com',
+    desc:'MCP 包管理器,命令行安装 MCP 服务器。', license:'开源' },
+
   /* ---------------- 语音 / AI 配音 ---------------- */
   { cat:'voice', name:'ElevenLabs', url:'https://elevenlabs.io', hot:true,
     desc:'顶级 AI 语音合成与克隆,多语言,免费额度。', license:'免费额度+付费' },
@@ -706,6 +730,7 @@ const CATS = {
   font:  { label:'字体下载' },
   tool:  { label:'设计工具' },
   skill: { label:'Skill 技能' },
+  mcp:   { label:'MCP 合集' },
   voice:  { label:'语音 / AI 配音' },
   noise:  { label:'白噪音 / 助眠' },
   direct: { label:'音乐直链' },
@@ -745,10 +770,10 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 function renderChips() {
   const counts = { all: SITES.length };
   Object.keys(CATS).forEach(c => counts[c] = SITES.filter(s => s.cat === c).length);
-  const order = ['all', 'image', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'voice', 'noise', 'direct', 'pixel'];
+  const order = ['all', 'image', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'mcp', 'voice', 'noise', 'direct', 'pixel'];
   const catChips = order.map(c =>
     `<button class="chip ${c === currentCat && !onlyFav ? 'active' : ''}" data-cat="${c}">
-      ${c === 'all' ? '全部' : CATS[c].label.split(' ').slice(1).join(' ')}
+      ${c === 'all' ? '全部' : CATS[c].label}
       <span class="count">${counts[c]}</span>
     </button>`
   ).join('');
