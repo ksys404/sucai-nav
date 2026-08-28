@@ -210,7 +210,7 @@
    cat 取值: image(图片) / wallpaper(壁纸背景) / video(视频) / audio(BGM音乐) / game(游戏) / texture(贴图纹理)
    / motion(动态素材) / character(游戏角色) / ui(UI参考) / icon(图标) / font(字体)
    / tool(工具) / book(电子书) / edu(教育备课) / skill(技能) / mcp(MCP合集) / prompt(提示词) / aitool(AI工具) / voice(语音)
-   / noise(白噪音) / direct(音乐直链) / pixel(像素)
+   / noise(白噪音) / direct(音乐直链) / pixel(像素) / ocean(海洋专题)
    license 建议写清:免费商用 / 需署名 / CC0 等
    hot: true 会显示「推荐」徽标(可选)
    ===================================================================== */
@@ -771,6 +771,40 @@ const SITES = [
     desc:'开源像素编辑器,支持动画。', license:'开源免费' },
   { cat:'pixel', name:'LibreSprite', url:'https://libresprite.github.io',
     desc:'Aseprite 的免费开源分支。', license:'开源免费' },
+
+  /* ---------------- 海洋专题(照片/视频/文章/科普/艺术/游戏/插画/音乐) ---------------- */
+  { cat:'ocean', name:'照片 · NOAA 海洋图库', url:'https://www.photolib.noaa.gov', hot:true,
+    desc:'美国海洋大气局照片库,海量公有领域海洋摄影。', license:'公有领域' },
+  { cat:'ocean', name:'照片 · Unsplash 海洋', url:'https://unsplash.com/s/photos/ocean',
+    desc:'高质量海洋摄影图,免费商用。', license:'免费商用' },
+  { cat:'ocean', name:'视频 · 蒙特雷湾水族馆直播', url:'https://www.montereybayaquarium.org/animals/live-cams',
+    desc:'水獭、水母、鲨鱼等海洋生物 24 小时直播。', license:'免费观看' },
+  { cat:'ocean', name:'视频 · NOAA Ocean Today', url:'https://oceantoday.noaa.gov',
+    desc:'海洋科普短视频合集,含深海探索。', license:'公有领域' },
+  { cat:'ocean', name:'视频 · Pixabay 海洋视频', url:'https://pixabay.com/videos/search/ocean/',
+    desc:'免费海洋视频素材,可商用。', license:'免费商用' },
+  { cat:'ocean', name:'文章 · Hakai 海岸科学杂志', url:'https://hakaimagazine.com', hot:true,
+    desc:'专注海岸与海洋的深度报道,文笔与选题俱佳。', license:'免费阅读' },
+  { cat:'ocean', name:'科普 · NOAA 海洋探索', url:'https://oceanexplorer.noaa.gov',
+    desc:'深海探测实况、生物图鉴与科考日志。', license:'公有领域' },
+  { cat:'ocean', name:'科普 · Smithsonian 海洋门户', url:'https://ocean.si.edu', hot:true,
+    desc:'史密森尼海洋百科,图文并茂,适合教学。', license:'免费阅读' },
+  { cat:'ocean', name:'科普 · Whale.fm 鲸歌匹配', url:'https://whale.fm',
+    desc:'听鲸歌、帮科学家匹配个体的公民科学项目。', license:'免费参与' },
+  { cat:'ocean', name:'艺术 · Rawpixel 海洋典藏', url:'https://www.rawpixel.com/search/ocean',
+    desc:'公有领域海洋绘画、复古海报与插画典藏。', license:'公有领域为主' },
+  { cat:'ocean', name:'游戏 · Subnautica 深海迷航', url:'https://store.steampowered.com/app/264710/Subnautica/',
+    desc:'深海生存建造神作,外星海洋探索。', license:'付费游戏' },
+  { cat:'ocean', name:'游戏 · 潜水员戴夫', url:'https://store.steampowered.com/app/1868140/Dave_the_Diver/',
+    desc:'白天潜水捕鱼、晚上开寿司店的治愈经营。', license:'付费游戏' },
+  { cat:'ocean', name:'游戏 · ABZÛ', url:'https://store.steampowered.com/app/1041920/ABZU/',
+    desc:'唯美海洋探索艺术游戏,如诗如画。', license:'付费游戏' },
+  { cat:'ocean', name:'插画 · Freepik 海洋插画', url:'https://www.freepik.com/search?query=ocean+illustration',
+    desc:'海洋主题矢量插画素材,免费区可商用。', license:'免费需署名' },
+  { cat:'ocean', name:'音乐 · myNoise 海洋白噪音', url:'https://mynoise.net/NoiseMachines/oceanNoiseGenerator.php',
+    desc:'可调频的海洋声景,助眠/专注神器。', license:'免费' },
+  { cat:'ocean', name:'音乐 · Pixabay 海洋音乐', url:'https://pixabay.com/music/search/ocean/',
+    desc:'海洋氛围 BGM,免费可商用。', license:'免费商用' },
 ];
 
 const CATS = {
@@ -796,6 +830,7 @@ const CATS = {
   motion:   { label:'动态素材' },
   character:{ label:'游戏角色' },
   edu:      { label:'教育 / 备课' },
+  ocean:    { label:'海洋专题' },
 };
 
 const main = document.getElementById('main');
@@ -827,7 +862,7 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 function renderChips() {
   const counts = { all: SITES.length };
   Object.keys(CATS).forEach(c => counts[c] = SITES.filter(s => s.cat === c).length);
-  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel'];
+  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel', 'ocean'];
   const catChips = order.map(c =>
     `<button class="chip ${c === currentCat && !onlyFav ? 'active' : ''}" data-cat="${c}">
       ${c === 'all' ? '全部' : CATS[c].label}
