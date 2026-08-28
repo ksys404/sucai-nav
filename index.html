@@ -209,7 +209,7 @@
    在这里添加/修改网站 —— 每行一个,照着现有格式复制即可
    cat 取值: image(图片) / wallpaper(壁纸背景) / video(视频) / audio(BGM音乐) / game(游戏) / texture(贴图纹理)
    / motion(动态素材) / character(游戏角色) / ui(UI参考) / icon(图标) / font(字体)
-   / tool(工具) / book(电子书) / edu(教育备课) / skill(技能) / mcp(MCP合集) / voice(语音)
+   / tool(工具) / book(电子书) / edu(教育备课) / skill(技能) / mcp(MCP合集) / prompt(提示词) / aitool(AI工具) / voice(语音)
    / noise(白噪音) / direct(音乐直链) / pixel(像素)
    license 建议写清:免费商用 / 需署名 / CC0 等
    hot: true 会显示「推荐」徽标(可选)
@@ -640,6 +640,36 @@ const SITES = [
   { cat:'mcp', name:'mcp-get', url:'https://mcp-get.com',
     desc:'MCP 包管理器,命令行安装 MCP 服务器。', license:'开源' },
 
+  /* ---------------- 提示词库 / Prompt ---------------- */
+  { cat:'prompt', name:'Snack Prompt', url:'https://snackprompt.com', hot:true,
+    desc:'热门 Prompt 社区,按用途分类,可点赞收藏。', license:'免费' },
+  { cat:'prompt', name:'PromptBase', url:'https://promptbase.com',
+    desc:'Prompt 交易市场,可买可卖高质量提示词。', license:'免费/付费' },
+  { cat:'prompt', name:'AIPRM', url:'https://www.aiprm.com',
+    desc:'ChatGPT 提示词浏览器插件,海量现成模板。', license:'免费/付费' },
+  { cat:'prompt', name:'Prompt Engineering Guide', url:'https://www.promptingguide.ai', hot:true,
+    desc:'提示工程权威指南,含技巧与论文合集。', license:'免费' },
+  { cat:'prompt', name:'Learn Prompting', url:'https://learnprompting.org',
+    desc:'系统化的提示工程教程,中英双语。', license:'免费' },
+  { cat:'prompt', name:'awesome-chatgpt-prompts', url:'https://github.com/f/awesome-chatgpt-prompts', hot:true,
+    desc:'GitHub 最著名的 ChatGPT 提示词合集,按角色分类。', license:'开源(CC0)' },
+
+  /* ---------------- AI 工具站 ---------------- */
+  { cat:'aitool', name:'There\'s An AI For That', url:'https://theresanaiforthat.com', hot:true,
+    desc:'按任务查找 AI 工具,聚合数量庞大。', license:'免费' },
+  { cat:'aitool', name:'Futurepedia', url:'https://www.futurepedia.io',
+    desc:'AI 工具目录,含评测与分类筛选。', license:'免费' },
+  { cat:'aitool', name:'Future Tools', url:'https://www.futuretools.io',
+    desc:'AI 工具列表,持续收录最新应用。', license:'免费' },
+  { cat:'aitool', name:'通往 AGI 之路', url:'https://www.waytoagi.com', hot:true,
+    desc:'中文 AI 知识库 + 工具导航,入门到进阶资源齐全。', license:'免费' },
+  { cat:'aitool', name:'AI 工具集', url:'https://ai-bot.cn', hot:true,
+    desc:'中文 AI 工具导航站,分类细、更新快。', license:'免费' },
+  { cat:'aitool', name:'SuperTools', url:'https://supertools.therundown.ai',
+    desc:'精选 AI 工具,附每日 AI 新闻。', license:'免费' },
+  { cat:'aitool', name:'Toolify', url:'https://www.toolify.ai',
+    desc:'AI 工具目录,按分类/热度浏览。', license:'免费' },
+
   /* ---------------- 语音 / AI 配音 ---------------- */
   { cat:'voice', name:'ElevenLabs', url:'https://elevenlabs.io', hot:true,
     desc:'顶级 AI 语音合成与克隆,多语言,免费额度。', license:'免费额度+付费' },
@@ -756,6 +786,8 @@ const CATS = {
   tool:  { label:'设计工具' },
   skill: { label:'Skill 技能' },
   mcp:   { label:'MCP 合集' },
+  prompt: { label:'提示词库 / Prompt' },
+  aitool: { label:'AI 工具站' },
   voice:  { label:'语音 / AI 配音' },
   noise:  { label:'白噪音 / 助眠' },
   direct: { label:'音乐直链' },
@@ -795,7 +827,7 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 function renderChips() {
   const counts = { all: SITES.length };
   Object.keys(CATS).forEach(c => counts[c] = SITES.filter(s => s.cat === c).length);
-  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'mcp', 'voice', 'noise', 'direct', 'pixel'];
+  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel'];
   const catChips = order.map(c =>
     `<button class="chip ${c === currentCat && !onlyFav ? 'active' : ''}" data-cat="${c}">
       ${c === 'all' ? '全部' : CATS[c].label}
