@@ -209,7 +209,7 @@
    在这里添加/修改网站 —— 每行一个,照着现有格式复制即可
    cat 取值: image(图片) / wallpaper(壁纸背景) / video(视频) / audio(BGM音乐) / game(游戏) / texture(贴图纹理)
    / motion(动态素材) / character(游戏角色) / ui(UI参考) / icon(图标) / font(字体)
-   / tool(工具) / book(电子书) / edu(教育备课) / skill(技能) / mcp(MCP合集) / prompt(提示词) / aitool(AI工具) / voice(语音)
+   / tool(工具) / edit(剪辑动效) / book(电子书) / edu(教育备课) / skill(技能) / mcp(MCP合集) / prompt(提示词) / aitool(AI工具) / voice(语音)
    / noise(白噪音) / direct(音乐直链) / pixel(像素) / ocean(海洋专题)
    license 建议写清:免费商用 / 需署名 / CC0 等
    hot: true 会显示「推荐」徽标(可选)
@@ -526,6 +526,30 @@ const SITES = [
   { cat:'tool', name:'Vectr', url:'https://vectr.com',
     desc:'轻量在线矢量设计。', license:'免费使用' },
 
+  /* ---------------- 剪辑 / 转场动效 ---------------- */
+  { cat:'edit', name:'剪映 CapCut', url:'https://www.capcut.cn', hot:true,
+    desc:'国内首选免费剪辑,转场/特效/模板/素材齐全,手机电脑通用。', license:'免费' },
+  { cat:'edit', name:'DaVinci Resolve', url:'https://www.blackmagicdesign.com/products/davinciresolve',
+    desc:'专业级免费剪辑,转场+调色+特效一体。', license:'免费版可用' },
+  { cat:'edit', name:'Clipchamp', url:'https://clipchamp.com',
+    desc:'微软在线剪辑,浏览器直接用,含转场与模板。', license:'免费版可用' },
+  { cat:'edit', name:'Shotcut', url:'https://shotcut.org',
+    desc:'开源剪辑软件,跨平台,自带转场滤镜。', license:'开源免费' },
+  { cat:'edit', name:'Kdenlive', url:'https://kdenlive.org',
+    desc:'开源剪辑软件,专业转场与关键帧。', license:'开源免费' },
+  { cat:'edit', name:'OpenShot', url:'https://www.openshot.org',
+    desc:'简单易用的开源剪辑,转场拖拽即用。', license:'开源免费' },
+  { cat:'edit', name:'GSAP', url:'https://gsap.com', hot:true,
+    desc:'最强 JS 动画库,过渡/滚动/时间轴,网页动效标配。', license:'免费(部分付费插件)' },
+  { cat:'edit', name:'Transition.style', url:'https://transition.style', hot:true,
+    desc:'现成 CSS 转场效果,一键复制代码到网页。', license:'免费' },
+  { cat:'edit', name:'Animate.css', url:'https://animate.style',
+    desc:'经典 CSS 动画库,加个类名即用。', license:'MIT 开源' },
+  { cat:'edit', name:'Motion', url:'https://motion.dev',
+    desc:'轻量网页动效库(原 Motion One),API 简洁。', license:'开源' },
+  { cat:'edit', name:'Framer Motion', url:'https://www.framer.com/motion',
+    desc:'React 动效组件库,声明式过渡动画。', license:'MIT 开源' },
+
   /* ---------------- 电子书 / 图书馆 ---------------- */
   { cat:'book', name:'Project Gutenberg', url:'https://www.gutenberg.org', hot:true,
     desc:'古腾堡计划,7 万+ 公有领域电子书,免费下载。', license:'公有领域' },
@@ -818,6 +842,7 @@ const CATS = {
   icon:  { label:'图标素材' },
   font:  { label:'字体下载' },
   tool:  { label:'设计工具' },
+  edit:  { label:'剪辑 / 转场动效' },
   skill: { label:'Skill 技能' },
   mcp:   { label:'MCP 合集' },
   prompt: { label:'提示词库 / Prompt' },
@@ -862,7 +887,7 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 function renderChips() {
   const counts = { all: SITES.length };
   Object.keys(CATS).forEach(c => counts[c] = SITES.filter(s => s.cat === c).length);
-  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel', 'ocean'];
+  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'edit', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel', 'ocean'];
   const catChips = order.map(c =>
     `<button class="chip ${c === currentCat && !onlyFav ? 'active' : ''}" data-cat="${c}">
       ${c === 'all' ? '全部' : CATS[c].label}
