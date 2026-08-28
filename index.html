@@ -208,7 +208,7 @@
 /* =====================================================================
    在这里添加/修改网站 —— 每行一个,照着现有格式复制即可
    cat 取值: image(图片) / wallpaper(壁纸背景) / video(视频) / audio(BGM音乐) / game(游戏) / texture(贴图纹理)
-   / motion(动态素材) / character(游戏角色) / ui(UI参考) / icon(图标) / font(字体)
+   / motion(动态素材) / character(游戏角色) / anime(动漫立绘) / ui(UI参考) / icon(图标) / font(字体)
    / tool(工具) / edit(剪辑动效) / book(电子书) / edu(教育备课) / skill(技能) / mcp(MCP合集) / prompt(提示词) / aitool(AI工具) / voice(语音)
    / noise(白噪音) / direct(音乐直链) / pixel(像素) / ocean(海洋专题)
    license 建议写清:免费商用 / 需署名 / CC0 等
@@ -398,6 +398,20 @@ const SITES = [
     desc:'3D 模型市场,免费区含角色/场景。', license:'按各模型授权' },
   { cat:'character', name:'BlenderKit', url:'https://www.blenderkit.com',
     desc:'Blender 官方资产库,免费 CC0 角色/材质/模型。', license:'CC0/免费' },
+
+  /* ---------------- 动漫立绘 / 角色插画 ---------------- */
+  { cat:'anime', name:'Pipoya ぴぽや', url:'https://pipoya.net', hot:true,
+    desc:'日本知名免费角色立绘/行走图素材站,RPG 与视觉小说通用。', license:'免费(需遵守使用规约)' },
+  { cat:'anime', name:'あみたろ素材置き場', url:'https://amitaro.net', hot:true,
+    desc:'免费动漫角色立绘,含表情差分,适合文字游戏/视频。', license:'免费(需遵守使用规约)' },
+  { cat:'anime', name:'Picrew 捏脸', url:'https://picrew.me', hot:true,
+    desc:'海量捏脸模板,生成动漫头像/立绘,创作者授权各异。', license:'按各模板授权' },
+  { cat:'anime', name:'捏咔 neka', url:'https://www.neka.cc',
+    desc:'中文捏脸生成器,模板丰富,做头像/立绘方便。', license:'按各模板授权' },
+  { cat:'anime', name:'Charat', url:'https://charat.me',
+    desc:'日系捏脸/立绘生成器,风格多样,即开即用。', license:'按各模板授权' },
+  { cat:'anime', name:'Vroid Studio', url:'https://vroid.com', hot:true,
+    desc:'免费 3D 动漫角色建模工具,可导出 VRM 模型。', license:'免费' },
 
   /* ---------------- UI 设计参考 ---------------- */
   { cat:'ui', name:'Dribbble', url:'https://dribbble.com', hot:true,
@@ -854,6 +868,7 @@ const CATS = {
   texture:  { label:'贴图 / 纹理' },
   motion:   { label:'动态素材' },
   character:{ label:'游戏角色' },
+  anime:    { label:'动漫立绘' },
   edu:      { label:'教育 / 备课' },
   ocean:    { label:'海洋专题' },
 };
@@ -887,7 +902,7 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 function renderChips() {
   const counts = { all: SITES.length };
   Object.keys(CATS).forEach(c => counts[c] = SITES.filter(s => s.cat === c).length);
-  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'edit', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel', 'ocean'];
+  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'anime', 'ui', 'icon', 'font', 'tool', 'edit', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel', 'ocean'];
   const catChips = order.map(c =>
     `<button class="chip ${c === currentCat && !onlyFav ? 'active' : ''}" data-cat="${c}">
       ${c === 'all' ? '全部' : CATS[c].label}

@@ -1,8 +1,8 @@
 # Codyhome · 免费可商用素材导航
 
-一个单文件即可使用的素材收集导航页,收录 **24 大类、280+ 免费可商用站点**:
+一个单文件即可使用的素材收集导航页,收录 **25 大类、290+ 免费可商用站点**:
 
-图片 · 壁纸 / 背景 · 视频 · BGM · 游戏 · 贴图纹理 · 动态素材 · 游戏角色 · UI 参考 · 图标 · 字体 · 设计工具 · 剪辑 / 转场动效 · 电子书 · 教育备课 · Skill 技能 · MCP 合集 · 提示词库 · AI 工具站 · 语音配音 · 白噪音 · 音乐直链 · 像素素材 · 海洋专题
+图片 · 壁纸 / 背景 · 视频 · BGM · 游戏 · 贴图纹理 · 动态素材 · 游戏角色 · 动漫立绘 · UI 参考 · 图标 · 字体 · 设计工具 · 剪辑 / 转场动效 · 电子书 · 教育备课 · Skill 技能 · MCP 合集 · 提示词库 · AI 工具站 · 语音配音 · 白噪音 · 音乐直链 · 像素素材 · 海洋专题
 
 ## 使用方式
 
@@ -25,7 +25,7 @@
 
 字段说明:
 
-- `cat`: 分类,取值 `image` / `wallpaper` / `video` / `audio` / `game` / `texture` / `motion` / `character` / `ui` / `icon` / `font` / `tool` / `edit` / `book` / `edu` / `skill` / `mcp` / `prompt` / `aitool` / `voice` / `noise` / `direct` / `pixel` / `ocean`
+- `cat`: 分类,取值 `image` / `wallpaper` / `video` / `audio` / `game` / `texture` / `motion` / `character` / `anime` / `ui` / `icon` / `font` / `tool` / `edit` / `book` / `edu` / `skill` / `mcp` / `prompt` / `aitool` / `voice` / `noise` / `direct` / `pixel` / `ocean`
 - `name` 名称、`url` 网址、`desc` 简介
 - `license` 授权(标注「需署名」的记得注明作者)
 - `hot`: 可选,设为 `true` 显示「推荐」徽标
