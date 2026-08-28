@@ -207,7 +207,7 @@
 <script>
 /* =====================================================================
    在这里添加/修改网站 —— 每行一个,照着现有格式复制即可
-   cat 取值: image(图片) / video(视频) / audio(BGM音乐) / game(游戏) / texture(贴图纹理)
+   cat 取值: image(图片) / wallpaper(壁纸背景) / video(视频) / audio(BGM音乐) / game(游戏) / texture(贴图纹理)
    / motion(动态素材) / character(游戏角色) / ui(UI参考) / icon(图标) / font(字体)
    / tool(工具) / book(电子书) / edu(教育备课) / skill(技能) / mcp(MCP合集) / voice(语音)
    / noise(白噪音) / direct(音乐直链) / pixel(像素)
@@ -246,6 +246,30 @@ const SITES = [
     desc:'聚合搜索全网 CC 授权图片/音频,一键查来源。', license:'按各资源 CC 授权' },
   { cat:'image', name:'Wikimedia Commons', url:'https://commons.wikimedia.org',
     desc:'维基媒体资源库,海量公有领域/CC 图片音频视频。', license:'公有领域/CC 授权' },
+
+  /* ---------------- 壁纸 / 背景 ---------------- */
+  { cat:'wallpaper', name:'CoolBackgrounds', url:'https://coolbackgrounds.io', hot:true,
+    desc:'渐变/网格/多边形背景生成器,直接选色,可下载 PNG。', license:'免费' },
+  { cat:'wallpaper', name:'Haikei', url:'https://haikei.app', hot:true,
+    desc:'SVG 背景生成器,可调配色,壁纸/网页背景都好用。', license:'免费' },
+  { cat:'wallpaper', name:'Mesh Gradient', url:'https://meshgradient.com',
+    desc:'网格渐变生成,可导出 CSS/PNG。', license:'免费' },
+  { cat:'wallpaper', name:'CSS Gradient', url:'https://cssgradient.io',
+    desc:'渐变生成器,实时预览并复制 CSS 代码。', license:'免费' },
+  { cat:'wallpaper', name:'uiGradients', url:'https://uigradients.com',
+    desc:'精选渐变配色库,一键复制 CSS。', license:'免费' },
+  { cat:'wallpaper', name:'Blobmaker', url:'https://www.blobmaker.app',
+    desc:'有机形状 SVG 生成器,可导出代码。', license:'免费' },
+  { cat:'wallpaper', name:'Trianglify', url:'https://trianglify.io',
+    desc:'低多边形三角背景,可选配色。', license:'免费' },
+  { cat:'wallpaper', name:'SVG Backgrounds', url:'https://www.svgbackgrounds.com',
+    desc:'图案/纹理背景,附 CSS 代码。', license:'免费' },
+  { cat:'wallpaper', name:'Get Waves', url:'https://getwaves.io',
+    desc:'波浪分割线 SVG 生成器。', license:'免费' },
+  { cat:'wallpaper', name:'MyColorSpace', url:'https://mycolor.space',
+    desc:'输入一个颜色,自动生成整套配色方案。', license:'免费' },
+  { cat:'wallpaper', name:'Papers.co', url:'https://papers.co',
+    desc:'按色系分类的现成壁纸,水色/粉/紫/黑白都有。', license:'免费' },
 
   /* ---------------- 视频素材 ---------------- */
   { cat:'video', name:'Pexels Videos', url:'https://www.pexels.com/videos', hot:true,
@@ -721,6 +745,7 @@ const SITES = [
 
 const CATS = {
   image: { label:'图片素材' },
+  wallpaper: { label:'壁纸 / 背景' },
   video: { label:'视频素材' },
   audio: { label:'BGM / 音乐' },
   game:  { label:'游戏素材' },
@@ -770,7 +795,7 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 function renderChips() {
   const counts = { all: SITES.length };
   Object.keys(CATS).forEach(c => counts[c] = SITES.filter(s => s.cat === c).length);
-  const order = ['all', 'image', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'mcp', 'voice', 'noise', 'direct', 'pixel'];
+  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'ui', 'icon', 'font', 'tool', 'book', 'edu', 'skill', 'mcp', 'voice', 'noise', 'direct', 'pixel'];
   const catChips = order.map(c =>
     `<button class="chip ${c === currentCat && !onlyFav ? 'active' : ''}" data-cat="${c}">
       ${c === 'all' ? '全部' : CATS[c].label}

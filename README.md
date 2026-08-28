@@ -1,8 +1,8 @@
 # Codyhome · 免费可商用素材导航
 
-一个单文件即可使用的素材收集导航页,收录 **19 大类、230+ 免费可商用站点**:
+一个单文件即可使用的素材收集导航页,收录 **20 大类、240+ 免费可商用站点**:
 
-图片 · 视频 · BGM · 游戏 · 贴图纹理 · 动态素材 · 游戏角色 · UI 参考 · 图标 · 字体 · 设计工具 · 电子书 · 教育备课 · Skill 技能 · MCP 合集 · 语音配音 · 白噪音 · 音乐直链 · 像素素材
+图片 · 壁纸 / 背景 · 视频 · BGM · 游戏 · 贴图纹理 · 动态素材 · 游戏角色 · UI 参考 · 图标 · 字体 · 设计工具 · 电子书 · 教育备课 · Skill 技能 · MCP 合集 · 语音配音 · 白噪音 · 音乐直链 · 像素素材
 
 ## 使用方式
 
@@ -25,7 +25,7 @@
 
 字段说明:
 
-- `cat`: 分类,取值 `image` / `video` / `audio` / `game` / `texture` / `motion` / `character` / `ui` / `icon` / `font` / `tool` / `book` / `edu` / `skill` / `mcp` / `voice` / `noise` / `direct` / `pixel`
+- `cat`: 分类,取值 `image` / `wallpaper` / `video` / `audio` / `game` / `texture` / `motion` / `character` / `ui` / `icon` / `font` / `tool` / `book` / `edu` / `skill` / `mcp` / `voice` / `noise` / `direct` / `pixel`
 - `name` 名称、`url` 网址、`desc` 简介
 - `license` 授权(标注「需署名」的记得注明作者)
 - `hot`: 可选,设为 `true` 显示「推荐」徽标
