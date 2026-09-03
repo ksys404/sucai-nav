@@ -170,7 +170,7 @@
 <div class="hero">
   <p class="eyebrow">Codyhome</p>
   <h2>好素材,<br>免费可商用。</h2>
-  <p class="hero-sub">精选 <b id="heroTotal">222</b> 个免费可商用素材网站,覆盖 18 大分类。搜索即达,收藏即用。</p>
+  <p class="hero-sub">精选 <b id="heroTotal">222</b> 个免费可商用素材网站,覆盖 <b id="heroCatTotal">27</b> 大分类。搜索即达,收藏即用。</p>
   <div class="hero-search">
     <div class="search-box">
       <input id="search" type="text" placeholder="搜索网站名称、说明、授权类型…(按 / 聚焦)">
@@ -270,6 +270,32 @@ const SITES = [
     desc:'输入一个颜色,自动生成整套配色方案。', license:'免费' },
   { cat:'wallpaper', name:'Papers.co', url:'https://papers.co',
     desc:'按色系分类的现成壁纸,水色/粉/紫/黑白都有。', license:'免费' },
+
+  /* ---------------- 手机壁纸 / 竖屏背景 ---------------- */
+  { cat:'mwall', name:'WallpaperAccess', url:'https://wallpaperaccess.com', hot:true,
+    desc:'海量壁纸,可按手机分辨率/竖屏筛选下载。', license:'免费(注意单个版权)' },
+  { cat:'mwall', name:'Wallpaper Cave', url:'https://wallpapercave.com', hot:true,
+    desc:'壁纸库,按设备/分辨率分类,含大量手机壁纸。', license:'免费(注意单个版权)' },
+  { cat:'mwall', name:'Zedge', url:'https://www.zedge.net',
+    desc:'手机壁纸+铃声+通知音一站式下载,量大。', license:'免费(多为用户分享)' },
+  { cat:'mwall', name:'Walli', url:'https://walli.app',
+    desc:'艺术家精选手机壁纸 App,风格独特。', license:'免费(部分付费)' },
+  { cat:'mwall', name:'Backdrops', url:'https://www.backdrops.app',
+    desc:'精选竖屏壁纸 App,每日更新。', license:'免费(部分付费)' },
+  { cat:'mwall', name:'Peakpx', url:'https://www.peakpx.com',
+    desc:'免费高清壁纸,支持手机竖屏筛选。', license:'CC0 / 免费' },
+  { cat:'mwall', name:'WallHere', url:'https://wallhere.com',
+    desc:'中文壁纸站,支持手机壁纸筛选。', license:'免费(注意版权)' },
+  { cat:'mwall', name:'10wallpaper', url:'https://www.10wallpaper.com',
+    desc:'手机/桌面壁纸,分类清晰。', license:'免费' },
+  { cat:'mwall', name:'HDQ Walls', url:'https://hdqwalls.com',
+    desc:'高清壁纸,含手机竖屏专区。', license:'免费' },
+  { cat:'mwall', name:'Mobiles Wall', url:'https://www.mobileswall.com',
+    desc:'专做手机壁纸,竖屏为主。', license:'免费' },
+  { cat:'mwall', name:'WallpapersHome', url:'https://wallpapershome.com',
+    desc:'壁纸下载站,含手机分辨率。', license:'免费' },
+  { cat:'mwall', name:'Tapet', url:'https://tapet.io',
+    desc:'无限随机生成手机壁纸 App。', license:'免费' },
 
   /* ---------------- 视频素材 ---------------- */
   { cat:'video', name:'Pexels Videos', url:'https://www.pexels.com/videos', hot:true,
@@ -404,12 +430,6 @@ const SITES = [
     desc:'日本知名免费角色立绘/行走图素材站,RPG 与视觉小说通用。', license:'免费(需遵守使用规约)' },
   { cat:'anime', name:'あみたろ素材置き場', url:'https://amitaro.net', hot:true,
     desc:'免费动漫角色立绘,含表情差分,适合文字游戏/视频。', license:'免费(需遵守使用规约)' },
-  { cat:'anime', name:'Picrew 捏脸', url:'https://picrew.me', hot:true,
-    desc:'海量捏脸模板,生成动漫头像/立绘,创作者授权各异。', license:'按各模板授权' },
-  { cat:'anime', name:'捏咔 neka', url:'https://www.neka.cc',
-    desc:'中文捏脸生成器,模板丰富,做头像/立绘方便。', license:'按各模板授权' },
-  { cat:'anime', name:'Charat', url:'https://charat.me',
-    desc:'日系捏脸/立绘生成器,风格多样,即开即用。', license:'按各模板授权' },
   { cat:'anime', name:'Vroid Studio', url:'https://vroid.com', hot:true,
     desc:'免费 3D 动漫角色建模工具,可导出 VRM 模型。', license:'免费' },
   { cat:'anime', name:'Booth 立ち絵素材', url:'https://booth.pm', hot:true,
@@ -418,6 +438,26 @@ const SITES = [
     desc:'日本创作者订阅平台,不少画师免费发布 gal 立绘。', license:'按各素材授权' },
   { cat:'anime', name:'爱给网 立绘素材', url:'https://www.aigei.com',
     desc:'中文免费素材站,含动漫立绘/角色素材。', license:'免费(部分需遵守规约)' },
+
+  /* ---------------- 动漫头像 / 捏脸 ---------------- */
+  { cat:'avatar', name:'Picrew 捏脸', url:'https://picrew.me', hot:true,
+    desc:'日系捏脸之王,海量模板,捏完直接下载当头像。', license:'按各模板授权' },
+  { cat:'avatar', name:'捏咔 neka', url:'https://www.neka.cc', hot:true,
+    desc:'中文捏脸站,模板超多,二次元头像神器。', license:'按各模板授权' },
+  { cat:'avatar', name:'Charat', url:'https://charat.me',
+    desc:'日系捏脸/立绘生成器,动漫风头像即开即用。', license:'按各模板授权' },
+  { cat:'avatar', name:'Avachara', url:'https://avachara.com',
+    desc:'免费动漫头像制作,风格多样,可下载成品。', license:'免费' },
+  { cat:'avatar', name:'Face.co', url:'https://face.co',
+    desc:'AI 生成动漫/写实头像,输入描述即可出图。', license:'免费(注意商用条款)' },
+  { cat:'avatar', name:'Doll Divine', url:'https://www.dolldivine.com',
+    desc:'二次元/像素风捏人,游戏式制作头像。', license:'免费' },
+  { cat:'avatar', name:'ToonMe', url:'https://toonme.com',
+    desc:'照片一键转漫画头像,动漫感强。', license:'免费版有水印/部分付费' },
+  { cat:'avatar', name:'Avatar Maker', url:'https://avatarmaker.com',
+    desc:'在线头像生成器,含动漫/卡通风格。', license:'免费' },
+  { cat:'avatar', name:'いらすとや', url:'https://www.irasutoya.com',
+    desc:'日本海量免费插画素材,可商用,可挑图做头像。', license:'可商用(遵守使用条款)' },
 
   /* ---------------- UI 设计参考 ---------------- */
   { cat:'ui', name:'Dribbble', url:'https://dribbble.com', hot:true,
@@ -450,6 +490,67 @@ const SITES = [
     desc:'字体排版灵感,看真实网站用什么字体。', license:'灵感参考' },
   { cat:'ui', name:'Fonts In Use', url:'https://fontsinuse.com',
     desc:'字体实际应用案例库,搜字体看效果。', license:'灵感参考' },
+
+  /* ---------------- 开屏 / 交互动效 ---------------- */
+  { cat:'uimotion', name:'UI Movement', url:'https://uimovement.com', hot:true,
+    desc:'每日精选 UI 交互动效,按分类浏览,灵感量大。', license:'灵感参考' },
+  { cat:'uimotion', name:'Page Flows', url:'https://pageflows.com', hot:true,
+    desc:'真实产品录屏流程,含 onboarding/开屏/登录动效。', license:'灵感参考(部分付费)' },
+  { cat:'uimotion', name:'UXArchive', url:'https://uxarchive.com',
+    desc:'App 完整用户流程录屏档案,按任务分类。', license:'灵感参考(部分付费)' },
+  { cat:'uimotion', name:'Appmotion', url:'https://appmotion.design',
+    desc:'移动 App 动效灵感合集,可搜索筛选。', license:'灵感参考' },
+  { cat:'uimotion', name:'User Onboard', url:'https://www.useronboard.com',
+    desc:'产品开屏/onboarding 流程拆解分析,含逐步截图。', license:'灵感参考' },
+  { cat:'uimotion', name:'Little Big Details', url:'https://littlebigdetails.com',
+    desc:'收集产品里那些贴心的微交互细节。', license:'灵感参考' },
+  { cat:'uimotion', name:'Microinteractions Gallery', url:'https://microinteractions.gallery',
+    desc:'微交互案例库,附动图演示。', license:'灵感参考' },
+  { cat:'uimotion', name:'easings.net', url:'https://easings.net',
+    desc:'缓动函数速查表,附贝塞尔参数与演示。', license:'免费开源' },
+  { cat:'uimotion', name:'cubic-bezier.com', url:'https://cubic-bezier.com',
+    desc:'贝塞尔缓动曲线可视化,实时调参预览。', license:'免费' },
+  { cat:'uimotion', name:'UseAnimations', url:'https://useanimations.com',
+    desc:'动态图标/微交互动效,可导出。', license:'免费' },
+  { cat:'uimotion', name:'Hover.css', url:'https://ianlunn.github.io/Hover',
+    desc:'CSS hover 动效合集,一键套用。', license:'免费开源' },
+  { cat:'uimotion', name:'CSS Loaders', url:'https://cssloaders.github.io',
+    desc:'loading/加载动画库,纯 CSS 可复制。', license:'免费' },
+  { cat:'uimotion', name:'UI Ball', url:'https://uiball.com',
+    desc:'轻量加载动画生成,导出 SVG/React/CSS。', license:'免费' },
+  { cat:'uimotion', name:'Loading.io', url:'https://loading.io',
+    desc:'loading/转场动画生成器,可导出多种格式。', license:'免费(部分付费)' },
+
+  /* ---------------- HTML / CSS 交互源码 ---------------- */
+  { cat:'htmlcss', name:'CodePen', url:'https://codepen.io', hot:true,
+    desc:'全球最大前端代码社区,海量 HTML/CSS/JS 交互 Demo 源码。', license:'社区源码(注意各 Pen 授权)' },
+  { cat:'htmlcss', name:'CodeSandbox', url:'https://codesandbox.io', hot:true,
+    desc:'在线代码沙箱,可 fork 完整前端项目。', license:'社区源码(注意授权)' },
+  { cat:'htmlcss', name:'Codrops', url:'https://tympanus.net/codrops', hot:true,
+    desc:'高级网页动效/交互 demo 源码,视觉炫酷。', license:'教程源码(免费学习)' },
+  { cat:'htmlcss', name:'JSFiddle', url:'https://jsfiddle.net',
+    desc:'老牌在线代码测试,HTML/CSS/JS 三栏即时预览。', license:'社区源码(注意授权)' },
+  { cat:'htmlcss', name:'StackBlitz', url:'https://stackblitz.com',
+    desc:'在线 IDE,支持 Vue/React 等框架项目。', license:'社区源码(注意授权)' },
+  { cat:'htmlcss', name:'CSS-Tricks', url:'https://css-tricks.com',
+    desc:'CSS 技巧/教程/案例,前端必看。', license:'教程文章' },
+  { cat:'htmlcss', name:'CodyHouse', url:'https://codyhouse.co',
+    desc:'免费 HTML/CSS/JS 组件库,含交互组件。', license:'免费(部分付费)' },
+  { cat:'htmlcss', name:'UIverse', url:'https://uiverse.io',
+    desc:'开源 CSS 组件库(按钮/卡片/加载),一键复制代码。', license:'MIT 开源' },
+  { cat:'htmlcss', name:'CSS Buttons', url:'https://cssbuttons.io',
+    desc:'CSS 按钮集合,复制即用。', license:'开源免费' },
+  { cat:'htmlcss', name:'CodeMyUI', url:'https://codemyui.com',
+    desc:'UI 交互动效代码,附源码片段。', license:'免费代码' },
+  { cat:'htmlcss', name:'Free Frontend', url:'https://freefrontend.com',
+    desc:'免费前端代码示例/组件,分类清晰。', license:'免费代码示例' },
+  { cat:'htmlcss', name:'30 seconds of code', url:'https://www.30secondsofcode.org',
+    desc:'短小精悍代码片段库,按语言/主题分类。', license:'CC BY 4.0' },
+  { cat:'htmlcss', name:'码上掘金', url:'https://code.juejin.cn',
+    desc:'掘金在线代码分享,中文前端 Demo 多。', license:'社区源码(注意授权)' },
+  { cat:'htmlcss', name:'CSS Deck', url:'https://cssdeck.com',
+    desc:'CSS 演示社区,大量交互效果源码。', license:'免费演示' },
+
   /* ---------------- 图标素材 ---------------- */
   { cat:'icon', name:'Flaticon', url:'https://www.flaticon.com', hot:true,
     desc:'图标数量最多、风格统一,免费需署名。', license:'免费需署名(付费可免)' },
@@ -854,10 +955,13 @@ const SITES = [
 const CATS = {
   image: { label:'图片素材' },
   wallpaper: { label:'壁纸 / 背景' },
+  mwall:    { label:'手机壁纸' },
   video: { label:'视频素材' },
   audio: { label:'BGM / 音乐' },
   game:  { label:'游戏素材' },
   ui:    { label:'UI 设计参考' },
+  uimotion:{ label:'开屏 / 交互动效' },
+  htmlcss: { label:'HTML / CSS 源码' },
   book:  { label:'电子书 / 图书馆' },
   icon:  { label:'图标素材' },
   font:  { label:'字体下载' },
@@ -875,6 +979,7 @@ const CATS = {
   motion:   { label:'动态素材' },
   character:{ label:'游戏角色' },
   anime:    { label:'动漫立绘' },
+  avatar:   { label:'动漫头像' },
   edu:      { label:'教育 / 备课' },
   ocean:    { label:'海洋专题' },
 };
@@ -908,7 +1013,7 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 function renderChips() {
   const counts = { all: SITES.length };
   Object.keys(CATS).forEach(c => counts[c] = SITES.filter(s => s.cat === c).length);
-  const order = ['all', 'image', 'wallpaper', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'anime', 'ui', 'icon', 'font', 'tool', 'edit', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel', 'ocean'];
+  const order = ['all', 'image', 'wallpaper', 'mwall', 'video', 'audio', 'game', 'texture', 'motion', 'character', 'anime', 'avatar', 'ui', 'uimotion', 'htmlcss', 'icon', 'font', 'tool', 'edit', 'book', 'edu', 'skill', 'mcp', 'prompt', 'aitool', 'voice', 'noise', 'direct', 'pixel', 'ocean'];
   const catChips = order.map(c =>
     `<button class="chip ${c === currentCat && !onlyFav ? 'active' : ''}" data-cat="${c}">
       ${c === 'all' ? '全部' : CATS[c].label}
@@ -1065,6 +1170,7 @@ importFile.addEventListener('change', e => {
 });
 
 document.getElementById('heroTotal').textContent = SITES.length;
+document.getElementById('heroCatTotal').textContent = Object.keys(CATS).length;
 renderChips(); render();
 </script>
 </body>
