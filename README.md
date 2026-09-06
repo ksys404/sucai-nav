@@ -37,4 +37,4 @@
 ## 部署到 GitHub Pages(可选,让朋友直接点链接访问)
 
 1. 仓库 `Settings → Pages → Branch: main / root → Save`
-2. 稍等约 1 分钟,访问 `https://<你的用户名>.github.io/sucai-nav/`
+2. 稍等约 1 分钟,访问 `https://<你的用户名>.github.io/codyhome/`
